@@ -11,6 +11,7 @@
 #include "GameStates.h"
 #include "TowerBase.h"
 #include "TowerGun.h"
+#include <string>
 //#include "DPad.h"
 
 class GameScreen : public cocos2d::Layer
@@ -19,9 +20,14 @@ private:
 	std::vector<TowerBase *> m_towerBases; 
 	std::string const TOWERS_SPRITE_BATCH = "TowerBases"; // don't forget to #include <string>
 
+	std::vector<TowerGun *> m_traps;
+	std::string const TRAPS_SPRITE_BATCH = "Traps"; // don't forget to #include <string>
+	
 	std::vector<leftButton *> m_leftButton;
 
-	void createTowerBases();
+	void createPlatforms();
+	void createTraps();
+
 	Player * player;
 	Player2 * player2;
 

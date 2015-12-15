@@ -36,7 +36,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 
 		//Set the anchor point. Probably not needed but I'd rather have it done! 
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.5);
+		pSprite->setScale(.33);
 
 		return pSprite;
 	}

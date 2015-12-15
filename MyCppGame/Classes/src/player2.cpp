@@ -25,9 +25,9 @@ Player2 * Player2::create()
 		player2->setPhysicsBody(player2Body);
 
 		player2->setPosition(Vec2(origin.x + visibleSize.width / 4,
-			origin.y + visibleSize.height / 2));
+			origin.y + visibleSize.height / 4));
 		player2->setAnchorPoint(Point(0.5f, 0.5f));
-		player2->setScale(.5);
+		player2->setScale(.33);
 
 		return player2;
 	}
