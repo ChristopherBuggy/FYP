@@ -11,7 +11,7 @@ leftButton * leftButton::create()
 		left->autorelease();
 		left->initLeft();
 
-		left->addEvents();
+		//left->addEvents();
 		return left;
 	}
 
@@ -38,7 +38,7 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 
 }
 
-void leftButton::addEvents()
+/*void leftButton::addEvents()
 {
 	auto listener = cocos2d::EventListenerTouchAllAtOnce::create();
 
@@ -71,4 +71,4 @@ void leftButton::addEvents()
 	//With out this line, the sprite will do nothing! Nooooothing! 
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 30);
 
-}
+}*/

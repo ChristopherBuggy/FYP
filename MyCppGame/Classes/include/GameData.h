@@ -36,8 +36,8 @@ public:
 	float m_towerRotationOriginY;
 	int m_numberOfTowerBases;
 
-	float m_towerBaseX[10];
-	float m_towerBaseY[10];
+	float m_towerBaseX[15];
+	float m_towerBaseY[15];
 
 	// Projectile related fields.
 	std::string m_projectileFile;
