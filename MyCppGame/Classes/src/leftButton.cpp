@@ -64,7 +64,7 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 	// The handleTouchEvent method is then called. 
 	listener->onTouchesEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
 	{
-		handleTouchEvent(touch);
+		handleTouchEvent2(touch);
 	};
 
 	//This call back is called while the user is holding their finger down on the sprite (well, that's the idea)

@@ -51,7 +51,8 @@ public:
 	bool player2Selected;
 	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
 	
-	
+	//Camera
+
 	//GameLoop Stuff! 
 	void update(float dt);	// dt = delta time - the time between frames.
 
