@@ -27,6 +27,7 @@ private:
 
 	void createPlatforms();
 	void createTraps();
+	void createleftButton();
 
 	Player * player;
 	Player2 * player2;
@@ -56,7 +57,6 @@ public:
 	bool player1Selected;
 	bool player2Selected;
 	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
-	
 	//Camera
 
 	//GameLoop Stuff! 

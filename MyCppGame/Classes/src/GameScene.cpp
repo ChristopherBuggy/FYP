@@ -113,6 +113,11 @@ void GameScreen::createTraps()
 	}
 	this->addChild(spritebatch, 1, TRAPS_SPRITE_BATCH);
 }
+
+void GameScreen::createleftButton()
+{
+
+}
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
@@ -287,22 +292,27 @@ bool GameScreen::init()
 	selectMenu->setPosition(Point::ZERO);
 	this->addChild(selectMenu, 5);
 
+	//Player Stuff Just testing stuff. Cut me some slack, Man!
+	//Player One creation g and attachment ot the scene
+	//Check player.cpp for Physics details.
+	player = Player::create();
+	this->addChild(player, 5);
+
 	//creating left and right buttons. Obviously, I need to sort this out but for hte sack of gameplay and testing, here we have our selves.
 	left = leftButton::create();
 	left->setPosition(Vec2(origin.x + visibleSize.width / 10,
 		origin.y + visibleSize.height / 6));
+	//left->setPosition(30, 300);
 	this->addChild(left, 10);
+
+	//left->handleTouchEvent();
 
 	right = rightButton::create();
 	right->setPosition(Vec2(origin.x + visibleSize.width / 6,
 		origin.y + visibleSize.height / 6));
 	this->addChild(right, 10);
 
-	//Player Stuff Just testing stuff. Cut me some slack, Man!
-	//Player One creation g and attachment ot the scene
-	//Check player.cpp for Physics details.
-	player = Player::create();
-	this->addChild(player, 5);
+	
 
 	//Same cooment applies for player two as player one!
 	player2 = Player2::create();
@@ -313,8 +323,10 @@ bool GameScreen::init()
 
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
+	createleftButton();
 	createPlatforms();
 	createTraps();
+
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();

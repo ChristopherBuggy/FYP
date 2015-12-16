@@ -46,7 +46,3 @@ void Player::initPlayer()
 
 }
 
-void Player::Movement() {
-	
-
-}

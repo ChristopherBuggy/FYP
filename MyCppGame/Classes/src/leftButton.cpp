@@ -1,5 +1,5 @@
 #include "leftButton.h"
-#include "Player.h"
+
 
 USING_NS_CC;
 
@@ -11,7 +11,7 @@ leftButton * leftButton::create()
 		left->autorelease();
 		left->initLeft();
 
-		//left->addEvents();
+		left->addEvents();
 		return left;
 	}
 
@@ -38,15 +38,16 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 
 }
 
-/*void leftButton::addEvents()
+void leftButton::addEvents()
 {
-	auto listener = cocos2d::EventListenerTouchAllAtOnce::create();
-
+	//auto listener = cocos2d::EventListenerTouchAllAtOnce::create();
+	auto listener = cocos2d::EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
 
 	// Example of using a lambda expression to implement onTouchBegan event callback function
 	// In simple terms, at the start of a touch event, this callback function is triggered when the user touches the screen.
 	// If the touch area is over this sprite, the method returns true to indicate the event was consumed
-	listener->onTouchesBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event)
+	listener->onTouchBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event)
 	{
 		cocos2d::Vec2 pos = touch->getLocation();
 		cocos2d::Rect rect = this->getBoundingBox();
@@ -62,13 +63,22 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 
 	// This callback function is triggered when the user releases their touch on this sprite.
 	// The handleTouchEvent method is then called. 
-	listener->onTouchesEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
+	listener->onTouchEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
 	{
-		handleTouchEvent2(touch);
+		int x = 0;
+		handleTouchEvent(touch);
 	};
 
 	//This call back is called while the user is holding their finger down on the sprite (well, that's the idea)
 	//With out this line, the sprite will do nothing! Nooooothing! 
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 30);
 
-}*/
+}
+
+void leftButton::handleTouchEvent(cocos2d::Touch* touch)
+{
+	CCLOG("Entered Button Presses...");
+	//moveLeft = true;
+	//Player::Movement(moveLeft)
+	return;
+}
