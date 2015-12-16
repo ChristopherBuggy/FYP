@@ -49,13 +49,20 @@ void LevelLoader::loadGameData()
 	ptr->m_towerRotationOriginX = towerRotationOrigin["x"].GetInt();
 	ptr->m_towerRotationOriginY = towerRotationOrigin["y"].GetInt();
 	ptr->m_numberOfTowerBases = tower["number_of_tower_bases"].GetInt();
-
+	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
 	// The "tower_bases" element is an array.
 	Value const & towerBases = tower["tower_bases"];
+	Value const & traps = tower["traps"];
+
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
 		ptr->m_towerBaseX[i] = towerBases[i]["x"].GetInt();
 		ptr->m_towerBaseY[i] = towerBases[i]["y"].GetInt();
+	}
+	//trap array!
+	for (int i = 0; i < traps.Size(); i++) {
+		ptr->m_trapX[i] = traps[i]["x"].GetInt();
+		ptr->m_trapY[i] = traps[i]["y"].GetInt();
 	}
 
 	// Move to the "projectile" element, which is another object.

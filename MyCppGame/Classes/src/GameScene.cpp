@@ -15,7 +15,6 @@ Scene* GameScreen::createScene()
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.81f));
 	auto layer = GameScreen::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
-
 	scene->addChild(layer);
 	
 	
@@ -88,7 +87,7 @@ void GameScreen::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, co
 	CCLOG("MultiTouch has Ended!");
 }
 
-void GameScreen::createTowerBases()
+void GameScreen::createPlatforms()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
@@ -102,6 +101,18 @@ void GameScreen::createTowerBases()
 	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
 }
 
+void GameScreen::createTraps() 
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+	for (int i = 0; i < ptr->m_numberOfTraps; i++)
+	{
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]));
+		m_traps.push_back(traps);
+		spritebatch->addChild(traps, -5);
+	}
+	this->addChild(spritebatch, 1, TRAPS_SPRITE_BATCH);
+}
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
@@ -302,8 +313,8 @@ bool GameScreen::init()
 
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
-	createTowerBases();
-
+	createPlatforms();
+	createTraps();
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();

@@ -16,7 +16,10 @@ Scene* MainMenu::createScene()
 void MainMenu::activateGameScene(Ref *pSender)
 {
 	auto scene = GameScreen::createScene();
+<<<<<<< HEAD
 	//This is a fancy transition. 
+=======
+>>>>>>> 1217e0b5a7cfdbad34ea25e5c3bec4b3dc371d48
 	//Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 	Director::getInstance()->replaceScene(scene);
 }
