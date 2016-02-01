@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include <ui\CocosGUI.h>
 #include "PauseScene.h"
 #include "GameOverScene.h"
 #include "GameData.h"
@@ -27,6 +28,7 @@ private:
 
 	void createPlatforms();
 	void createTraps();
+	void createleftButton();
 
 	Player * player;
 	Player2 * player2;
@@ -45,6 +47,9 @@ private:
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
+	//Add event listeners for my buttons.
+	void addEvents();
+	void handleTouch(Ref *pSender);
 	// Called when user pauses gameplay.
 	void activatePauseScene(Ref *pSender);
 	// Called at game over 
@@ -56,8 +61,8 @@ public:
 	bool player1Selected;
 	bool player2Selected;
 	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
-	
-	
+	//Camera
+
 	//GameLoop Stuff! 
 	void update(float dt);	// dt = delta time - the time between frames.
 

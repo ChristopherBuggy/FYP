@@ -113,6 +113,11 @@ void GameScreen::createTraps()
 	}
 	this->addChild(spritebatch, 1, TRAPS_SPRITE_BATCH);
 }
+
+void GameScreen::createleftButton()
+{
+
+}
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
@@ -172,37 +177,11 @@ bool GameScreen::init()
 	listener->onTouchesEnded = CC_CALLBACK_2(GameScreen::onTouchesEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	/*//DPad creation
-	controller = DPad::create("Base01.png", "Button01", "ButtonPressed01.png", Point(0, 0));
-	controller->setCorner(2);
-	this->addChild(controller);
-
-	//In the update function which I still need to implement. 
-	//dpad input
-	if (controller->getButton(2)->isSelected()) {
-		CCLOG("Down button is pressed!");
-	}
-
-	else if (controller->getButton(8)->isSelected()) {
-
-		CCLOG("Up button is pressed!");
-
-	}
-
-	else if (controller->getButton(6)->isSelected()) {
-
-		CCLOG("Left button is pressed!");
-
-	}
-
-	else if (controller->getButton(4)->isSelected()) {
-
-		CCLOG("Right button is pressed!");
-
-	}
-	*/
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
+
+	bool dir;
+	bool jump = true;
 
 	//Edge body created. Adding screen Boundry. 
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3);
@@ -226,41 +205,108 @@ bool GameScreen::init()
 	auto menu = Menu::create(pauseItem, NULL);
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu);
-//.........................................................................................
-	//DPad
-	/*hud = HUD::create();
-	hud->setPosition(Vec2(origin.x + visibleSize.width / 6,
-		origin.y + visibleSize.height / 6));
-	this->addChild(hud, 6);*/
-
-	auto leftItem =
-		MenuItemImage::create("GameScreen/leftButtonIdle.png",
-			"GameScreen/leftButtonActive.png",
-			CC_CALLBACK_0(GameScreen::MovementLeft , this));
-
-	auto rightItem =
-		MenuItemImage::create("GameScreen/rightButtonIdle.png",
-			"GameScreen/rightButtonActive.png",
-			CC_CALLBACK_0(GameScreen::MovementRight, this));
-
-	//DPad position
-	/*//Set left button position
-	leftItem->setPosition(Vec2(origin.x + visibleSize.width / 10,
-		origin.y + visibleSize.height / 6));
-	//Attach the pause button to the screen
-	auto menu2 = Menu::create(leftItem, NULL);
-	menu2->setPosition(Point::ZERO);
-	this->addChild(menu2, 10);
-
-	//Set right button position
-	rightItem->setPosition(Vec2(origin.x + visibleSize.width / 6,
-		origin.y + visibleSize.height / 6));
-	//Attach the pause button to the screen
-	auto menu3 = Menu::create(rightItem, NULL);
-	menu3->setPosition(Point::ZERO);
-	this->addChild(menu3, 10);
-
 	
+	//.........................................................................................
+	//DPad
+	//LeftButton to move the player.
+	auto leftbutton = ui::Button::create("GameScreen/leftButtonIdle.png",
+		"GameScreen/leftbuttonActive.png");
+	leftbutton->setPosition(Vec2(origin.x + visibleSize.width / 10,
+		origin.y + visibleSize.height / 6));
+
+	leftbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			//handleTouch(this);
+			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
+			//player->getPhysicsBody()->setDynamic(true);
+			dir = true;
+			if (player1Selected == true) {
+				player->pMovement(player, dir);
+			}
+			if (player2Selected == true) {
+				player2->p2Movement(player2, dir);
+			}
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			player->getPhysicsBody()->resetForces();
+			player2->getPhysicsBody()->resetForces();
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(leftbutton, 10);
+
+	//RightButton to move the player.
+	auto rightbutton = ui::Button::create("GameScreen/rightButtonIdle.png",
+		"GameScreen/rightbuttonActive.png");
+	rightbutton->setPosition(Vec2(origin.x + visibleSize.width / 6,
+		origin.y + visibleSize.height / 6));
+
+	rightbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			//handleTouch(this);
+			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
+			dir = false;
+			if (player1Selected == true) {
+				player->pMovement(player, dir);
+			}
+			if (player2Selected == true) {
+				player2->p2Movement(player2, dir);
+			}
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			player->getPhysicsBody()->resetForces();
+			player2->getPhysicsBody()->resetForces();
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(rightbutton, 10);
+
+	int stop;
+	//JumpButton to move the player.
+	auto jumpbutton = ui::Button::create("GameScreen/jumpButtonIdle.png",
+		"GameScreen/jumpButtonActive.png");
+	jumpbutton->setPosition(Vec2(origin.x + visibleSize.width - 100,
+		origin.y + visibleSize.height / 6));
+
+	jumpbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			//handleTouch(this);
+			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
+			if (player1Selected == true && jump == true) {
+				CCLOG("I've entered the jump if statement!");
+				//jump = false;
+				player->pJump(player);
+			}
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			break;
+		default:
+			break;
+		}
+	});
+
+	//stop = player->getPhysicsBody()->vel().y;
+
+	/*if ( stop == 0)
+	{
+		jump = true;
+	}
+	*/
+	this->addChild(jumpbutton, 10);
+	addEvents();
 	/*TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
 		m_towerBases.push_back(base);
 		spritebatch->addChild(base, -5);*/
@@ -287,22 +333,27 @@ bool GameScreen::init()
 	selectMenu->setPosition(Point::ZERO);
 	this->addChild(selectMenu, 5);
 
-	//creating left and right buttons. Obviously, I need to sort this out but for hte sack of gameplay and testing, here we have our selves.
-	left = leftButton::create();
-	left->setPosition(Vec2(origin.x + visibleSize.width / 10,
-		origin.y + visibleSize.height / 6));
-	this->addChild(left, 10);
-
-	right = rightButton::create();
-	right->setPosition(Vec2(origin.x + visibleSize.width / 6,
-		origin.y + visibleSize.height / 6));
-	this->addChild(right, 10);
-
 	//Player Stuff Just testing stuff. Cut me some slack, Man!
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
 	this->addChild(player, 5);
+
+	//creating left and right buttons. Obviously, I need to sort this out but for hte sack of gameplay and testing, here we have our selves.
+	/*left = leftButton::create();
+	left->setPosition(Vec2(origin.x + visibleSize.width / 10,
+		origin.y + visibleSize.height / 6));
+	//left->setPosition(30, 300);
+	this->addChild(left, 10);
+	*/
+	//left->handleTouchEvent();
+
+	/*right = rightButton::create();
+	right->setPosition(Vec2(origin.x + visibleSize.width / 6,
+		origin.y + visibleSize.height / 6));
+	this->addChild(right, 10);
+	*/
+	
 
 	//Same cooment applies for player two as player one!
 	player2 = Player2::create();
@@ -313,10 +364,29 @@ bool GameScreen::init()
 
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
+	createleftButton();
 	createPlatforms();
 	createTraps();
+
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();
 	return true;
+}
+
+void GameScreen::addEvents()
+{
+	//Create a "one by one" touch event listener (processes one touch at a time)
+	auto listener1 = EventListenerTouchOneByOne::create();
+	// When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
+	listener1->setSwallowTouches(true);
+
+	// Example of using a lambda expression to implement onTouchBegan event callback function
+	listener1->onTouchBegan = [this](Touch* touch, Event* event) {
+		//this->m_pos = touch->getLocation();
+		//updateState();
+		return true;
+	};
+
+	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener1, 30);
 }

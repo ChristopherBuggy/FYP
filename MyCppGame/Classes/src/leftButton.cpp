@@ -1,17 +1,26 @@
 #include "leftButton.h"
-#include "Player.h"
+
 
 USING_NS_CC;
 
+leftButton::leftButton()
+{
+
+}
+
 leftButton * leftButton::create()
 {
+
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+
+	
 	leftButton * left = new leftButton();
 	if (left && left->initWithFile("GameScreen/leftButtonIdle.png"))
 	{
 		left->autorelease();
 		left->initLeft();
 
-		//left->addEvents();
+		left->addEvents();
 		return left;
 	}
 
@@ -21,7 +30,11 @@ leftButton * leftButton::create()
 
 void leftButton::initLeft()
 {
+	/*Size visibleSize = Director::getInstance()->getVisibleSize();
+	Point origin = Director::getInstance()->getVisibleOrigin();
 	
+	this->setPosition(Vec2(origin.x + visibleSize.width / 10,
+		origin.y + visibleSize.height / 6));
 
 	/*Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -38,15 +51,16 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 
 }
 
-/*void leftButton::addEvents()
+void leftButton::addEvents()
 {
-	auto listener = cocos2d::EventListenerTouchAllAtOnce::create();
-
+	//auto listener = cocos2d::EventListenerTouchAllAtOnce::create();
+	auto listener = cocos2d::EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
 
 	// Example of using a lambda expression to implement onTouchBegan event callback function
 	// In simple terms, at the start of a touch event, this callback function is triggered when the user touches the screen.
 	// If the touch area is over this sprite, the method returns true to indicate the event was consumed
-	listener->onTouchesBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event)
+	listener->onTouchBegan = [&](cocos2d::Touch* touch, cocos2d::Event* event)
 	{
 		cocos2d::Vec2 pos = touch->getLocation();
 		cocos2d::Rect rect = this->getBoundingBox();
@@ -62,8 +76,9 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 
 	// This callback function is triggered when the user releases their touch on this sprite.
 	// The handleTouchEvent method is then called. 
-	listener->onTouchesEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
+	listener->onTouchEnded = [=](cocos2d::Touch* touch, cocos2d::Event* event)
 	{
+		int x = 0;
 		handleTouchEvent(touch);
 	};
 
@@ -71,4 +86,12 @@ void leftButton::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, co
 	//With out this line, the sprite will do nothing! Nooooothing! 
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 30);
 
-}*/
+}
+
+void leftButton::handleTouchEvent(cocos2d::Touch* touch)
+{
+	CCLOG("Entered Button Presses...");
+	//moveLeft = true;
+	//Player::Movement(moveLeft)
+	return;
+}

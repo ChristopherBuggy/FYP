@@ -42,7 +42,10 @@ void Player2::initPlayer()
 
 }
 
-void Player2::Movement() {
-
-
+void Player2::p2Movement(Player2* p, bool dir) {
+	if (dir == true) {
+		p->getPhysicsBody()->applyForce(Vect(-1000, 0));
+	}
+	else 
+		p->getPhysicsBody()->applyForce(Vect(1000, 0));
 }

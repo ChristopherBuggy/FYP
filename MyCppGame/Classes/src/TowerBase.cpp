@@ -91,6 +91,7 @@ void TowerBase::addEvents()
 void TowerBase::handleTouchEvent(cocos2d::Touch* touch)
 {
 	// Change gameState in response to sprite touched
+	//Put your movement stuff in here (but in your main obvioudly)
 	m_gameState = GameStates::GameInit;
 	m_touched = true;
 }

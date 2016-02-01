@@ -15,13 +15,13 @@ Player * Player::create()
 		//cocos2d::Size size(60, 120);
 		player->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y));
 		
-		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 1, 0));
+		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 5, 0));
 		player1Body->setRotationEnable(false);
 		player1Body->setCollisionBitmask(0x000001);
 		player1Body->setContactTestBitmask(true);
 		player1Body->setDynamic(true);
 		//player1Body->setVelocity(Vect(100, 247));
-		player1Body->setLinearDamping(0.5);
+		player1Body->setLinearDamping(0);
 		//player1Body->applyForce(Vect(100, 245));
 
 		//Assign the body to sprite
@@ -31,6 +31,7 @@ Player * Player::create()
 			origin.y + visibleSize.height / 4));
 		player->setAnchorPoint(Point(0.5f, 0.5f));
 		player->setScale(.33);
+		//player->pMovement(player);
 		
 		//this->addChild(sprite);
 		
@@ -41,12 +42,20 @@ Player * Player::create()
 	return NULL;
 }
 
+void Player::pMovement(Player* p, bool dir) {
+	if (dir == true) {
+		p->getPhysicsBody()->applyForce(Vect(-1000, 0));
+	}
+	else
+		p->getPhysicsBody()->applyForce(Vect(1000, 0));
+}
+
+void Player::pJump(Player* p) {
+	p->getPhysicsBody()->applyImpulse(Vect(40, 0));
+}
+
 void Player::initPlayer()
 {
 
 }
 
-void Player::Movement() {
-	
-
-}

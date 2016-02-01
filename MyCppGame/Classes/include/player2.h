@@ -7,7 +7,7 @@ class Player2 : public cocos2d::Sprite {
 
 public:
 	static Player2 * create(void);
-	void Movement();
+	void p2Movement(Player2* p, bool dir);
 
 private:
 	void initPlayer();
