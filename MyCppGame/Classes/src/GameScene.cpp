@@ -54,24 +54,6 @@ void GameScreen::playerTwoSelected() {
 	player2Selected = true;
 }
 
-void GameScreen::MovementRight() {
-	if (player1Selected == true) {
-		player->setPosition(player->getPosition().x + 5, player->getPosition().y);
-	}
-	if (player2Selected == true) {
-		player2->setPosition(player2->getPosition().x + 5, player2->getPosition().y);
-	}
-}
-
-void GameScreen::MovementLeft() {
-	if (player1Selected == true) {
-		player->setPosition(player->getPosition().x - 5, player->getPosition().y);
-	}
-	if (player2Selected == true) {
-		player2->setPosition(player2->getPosition().x - 5, player2->getPosition().y);
-	}
-}
-
 void GameScreen::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
 {
 
@@ -347,12 +329,6 @@ bool GameScreen::init()
 	this->addChild(left, 10);
 	*/
 	//left->handleTouchEvent();
-
-	/*right = rightButton::create();
-	right->setPosition(Vec2(origin.x + visibleSize.width / 6,
-		origin.y + visibleSize.height / 6));
-	this->addChild(right, 10);
-	*/
 	
 
 	//Same cooment applies for player two as player one!
