@@ -212,9 +212,8 @@ bool GameScreen::init()
 			}
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			player->getPhysicsBody()->resetForces();
-			player2->getPhysicsBody()->resetForces();
-
+			player->getPhysicsBody()->setVelocity(Vec2(0, 0));
+			player2->getPhysicsBody()->setVelocity(Vec2(0, 0));
 			break;
 		default:
 			break;
@@ -244,8 +243,8 @@ bool GameScreen::init()
 			}
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-			player->getPhysicsBody()->resetForces();
-			player2->getPhysicsBody()->resetForces();
+			player->getPhysicsBody()->setVelocity(Vec2(0, 0));
+			player2->getPhysicsBody()->setVelocity(Vec2(0, 0));
 			break;
 		default:
 			break;
@@ -260,7 +259,6 @@ bool GameScreen::init()
 		"GameScreen/jumpButtonActive.png");
 	jumpbutton->setPosition(Vec2(origin.x + visibleSize.width - 100,
 		origin.y + visibleSize.height / 6));
-
 	jumpbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -269,8 +267,9 @@ bool GameScreen::init()
 			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
 			if (player1Selected == true && jump == true) {
 				CCLOG("I've entered the jump if statement!");
-				//jump = false;
+				
 				player->pJump(player);
+				
 			}
 			break;
 		case ui::Widget::TouchEventType::ENDED:
@@ -280,13 +279,6 @@ bool GameScreen::init()
 		}
 	});
 
-	//stop = player->getPhysicsBody()->vel().y;
-
-	/*if ( stop == 0)
-	{
-		jump = true;
-	}
-	*/
 	this->addChild(jumpbutton, 10);
 	addEvents();
 	/*TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);

@@ -15,7 +15,7 @@ Player * Player::create()
 		//cocos2d::Size size(60, 120);
 		player->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y));
 		
-		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 5, 0));
+		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 0, 10));
 		player1Body->setRotationEnable(false);
 		player1Body->setCollisionBitmask(0x000001);
 		player1Body->setContactTestBitmask(true);
@@ -44,14 +44,16 @@ Player * Player::create()
 
 void Player::pMovement(Player* p, bool dir) {
 	if (dir == true) {
-		p->getPhysicsBody()->applyForce(Vect(-1000, 0));
+		p->getPhysicsBody()->setVelocity(Vect(-400, 0));
 	}
 	else
-		p->getPhysicsBody()->applyForce(Vect(1000, 0));
+		p->getPhysicsBody()->setVelocity(Vect(400, 0));
 }
 
 void Player::pJump(Player* p) {
-	p->getPhysicsBody()->applyImpulse(Vect(40, 0));
+	CCLOG("Inside jump method within player class");
+	p->getPhysicsBody()->applyImpulse(Vect(0, 400));
+	p->getPhysicsBody()->applyForce(Vect(0, 400));
 }
 
 void Player::initPlayer()
