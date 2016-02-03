@@ -1,15 +1,15 @@
-#include "TowerGun.h"
+#include "endGame.h"
 
 USING_NS_CC;
 
 //const double TowerGun::PI = 4.0 * atan(1.0);
 
-TowerGun::TowerGun()
+endGame::endGame()
 {
 
 }
 
-TowerGun * TowerGun::create(Vec2 position)
+endGame * endGame::create(Vec2 position)
 {
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -20,29 +20,28 @@ TowerGun * TowerGun::create(Vec2 position)
 	auto spritecache = SpriteFrameCache::getInstance();
 	spritecache->addSpriteFramesWithFile(ptr->m_textureAtlasPlistFile);
 
-	TowerGun* pSprite = new TowerGun();
-	if (pSprite->initWithSpriteFrameName(ptr->m_towerGunFile))
+	endGame* pSprite = new endGame();
+	if (pSprite->initWithSpriteFrameName(ptr->m_endGameArea))
 	{
 		pSprite->autorelease();
 
 		//pSprite->initOptions(position);
-		pSprite->setPosition(500, (position.y + origin.y + pSprite->getContentSize().height / 4) + 20);
+		pSprite->setPosition(100, 398);
 		//Body for the trap!
-		auto trapBody = PhysicsBody::createCircle(pSprite->getContentSize().width / 2, PhysicsMaterial(100, 0, 0));
-		trapBody->setRotationEnable(true);
-		trapBody->setGravityEnable(false);
-		trapBody->setCollisionBitmask(0x000005);
-		trapBody->setContactTestBitmask(true);
-		//trapBody->setDynamic(false);
-		trapBody->setAngularVelocity(400);
+		auto endBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+
+		endBody->setCollisionBitmask(0x000006);
+		endBody->setContactTestBitmask(true);
+		endBody->setDynamic(false);
+		endBody->setAngularVelocity(400);
 
 		//Assign the body to sprite
-		pSprite->setPhysicsBody(trapBody);
-		
+		pSprite->setPhysicsBody(endBody);
+
 		//Othe stuff that may or may not be needed.
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
 		pSprite->setScale(.33);
-		
+
 
 		return pSprite;
 	}
@@ -51,16 +50,16 @@ TowerGun * TowerGun::create(Vec2 position)
 	return NULL;
 }
 
-void TowerGun::initOptions(Vec2 position)
+void endGame::initOptions(Vec2 position)
 {
 	Point origin = Director::getInstance()->getVisibleOrigin();
-	
+
 	// Set the anchor point lower on the y-axis for the tower gun, so rotations look better.
 }
 
 
 
-void TowerGun::update(float dt) 
+void endGame::update(float dt)
 {
-		
+
 }

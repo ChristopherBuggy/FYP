@@ -6,6 +6,7 @@
     "tower": {
       "tower_base_file": "midPiece.png",
       "tower_gun_file": "blade.png",
+      "end_game_file": "door.png",
       "tower_width": 62,
       "tower_height": 53,
       "firing_delay": 800,
@@ -14,14 +15,25 @@
         "x": 31,
         "y": 55
       },
-      "number_of_traps": 1,
+      "number_of_traps": 2,
       "traps": [
         {
           "x": 600,
           "y": 100
+        },
+        {
+          "x": 600,
+          "y": 50
         }
       ],
-      "number_of_tower_bases": 60,
+      "end_Game": 1,
+      "endGame": [
+        {
+          "x": 50,
+          "y": 50
+        }
+      ],
+      "number_of_tower_bases": 52,
       "tower_bases": [
         {
           "x": 55,
@@ -177,6 +189,14 @@
           "y": 255
         },
         {
+          "x": 640,
+          "y": 255
+        },
+        {
+          "x": 730,
+          "y": 165
+        },
+        {
           "x": 235,
           "y": 300
         },
@@ -211,8 +231,19 @@
         {
           "x": 595,
           "y": 300
+        },
+        {
+          "x": 100,
+          "y": 345
+        },
+        {
+          "x": 55,
+          "y": 345
+        },
+        {
+          "x": 145,
+          "y": 345
         }
-
       ]
     },
     "projectile": {

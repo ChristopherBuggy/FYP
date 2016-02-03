@@ -89,17 +89,26 @@ void GameScreen::createTraps()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numberOfTraps; i++)
 	{
-		TowerGun * traps = TowerGun::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]));
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]));
 		m_traps.push_back(traps);
 		spritebatch->addChild(traps, -5);
 	}
 	this->addChild(spritebatch, 1, TRAPS_SPRITE_BATCH);
 }
 
-void GameScreen::createleftButton()
+void GameScreen::createEndGame()
 {
-
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+	for (int i = 0; i < ptr->m_numEndGame; i++)
+	{
+		endGame * endGame = endGame::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]));
+		m_end.push_back(endGame);
+		spritebatch->addChild(endGame, -5);
+	}
+	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
 }
+
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
@@ -267,7 +276,6 @@ bool GameScreen::init()
 			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
 			if (player1Selected == true && jump == true) {
 				CCLOG("I've entered the jump if statement!");
-				
 				player->pJump(player);
 				
 			}
@@ -311,19 +319,9 @@ bool GameScreen::init()
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
-	this->addChild(player, 5);
+	this->addChild(player, 5);	
 
-	//creating left and right buttons. Obviously, I need to sort this out but for hte sack of gameplay and testing, here we have our selves.
-	/*left = leftButton::create();
-	left->setPosition(Vec2(origin.x + visibleSize.width / 10,
-		origin.y + visibleSize.height / 6));
-	//left->setPosition(30, 300);
-	this->addChild(left, 10);
-	*/
-	//left->handleTouchEvent();
-	
-
-	//Same cooment applies for player two as player one!
+	//Same comment applies for player two as player one!
 	player2 = Player2::create();
 	this->addChild(player2, 5);
 	
@@ -332,9 +330,9 @@ bool GameScreen::init()
 
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
-	createleftButton();
 	createPlatforms();
 	createTraps();
+	createEndGame();
 
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.

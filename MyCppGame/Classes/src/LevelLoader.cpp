@@ -38,7 +38,11 @@ void LevelLoader::loadGameData()
 	assert(tower.IsObject());
 	// Get the tower properties.
 	ptr->m_towerBaseFile = tower["tower_base_file"].GetString();
+	//Traps
 	ptr->m_towerGunFile = tower["tower_gun_file"].GetString();
+	//End game
+	ptr->m_endGameArea = tower["end_game_file"].GetString();
+
 	ptr->m_towerWidth = tower["tower_width"].GetInt();
 	ptr->m_towerHeight = tower["tower_height"].GetInt();
 	ptr->m_firingDelay = tower["firing_delay"].GetInt();
@@ -50,21 +54,30 @@ void LevelLoader::loadGameData()
 	ptr->m_towerRotationOriginY = towerRotationOrigin["y"].GetInt();
 	ptr->m_numberOfTowerBases = tower["number_of_tower_bases"].GetInt();
 	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
+	ptr->m_numEndGame = tower["end_Game"].GetInt();
+
 	// The "tower_bases" element is an array.
 	Value const & towerBases = tower["tower_bases"];
 	Value const & traps = tower["traps"];
+	Value const & endGame = tower["endGame"];
 
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
 		ptr->m_towerBaseX[i] = towerBases[i]["x"].GetInt();
 		ptr->m_towerBaseY[i] = towerBases[i]["y"].GetInt();
 	}
+
 	//trap array!
 	for (int i = 0; i < traps.Size(); i++) {
 		ptr->m_trapX[i] = traps[i]["x"].GetInt();
 		ptr->m_trapY[i] = traps[i]["y"].GetInt();
 	}
 
+	//endgame Array!
+	for (int i = 0; i < endGame.Size(); i++){
+		ptr->m_endGameX[i] = endGame[i]["x"].GetInt();
+		ptr->m_endGameY[i] = endGame[i]["y"].GetInt();
+	}
 	// Move to the "projectile" element, which is another object.
 	it1++;
 	Value const & projectile = it1->value;

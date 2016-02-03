@@ -27,7 +27,9 @@ public:
 	std::string m_textureAtlasPlistFile;
 	// Tower base and tower related fields.
 	std::string m_towerBaseFile;
+	std::string m_endGameArea;
 	std::string m_towerGunFile;
+
 	int m_towerWidth;
 	int m_towerHeight;
 	int m_firingDelay;
@@ -36,12 +38,16 @@ public:
 	float m_towerRotationOriginY;
 	int m_numberOfTowerBases;
 	int m_numberOfTraps;
+	int m_numEndGame;
 
-	float m_towerBaseX[60];
-	float m_towerBaseY[60];
+	float m_towerBaseX[52];
+	float m_towerBaseY[52];
 
-	float m_trapX[1];
-	float m_trapY[1];
+	float m_trapX[2];
+	float m_trapY[2];
+
+	float m_endGameX[1];
+	float m_endGameY[1];
 
 	// Projectile related fields.
 	std::string m_projectileFile;
