@@ -52,8 +52,8 @@ void Player::pMovement(Player* p, bool dir) {
 
 void Player::pJump(Player* p) {
 	CCLOG("Inside jump method within player class");
-	p->getPhysicsBody()->applyImpulse(Vect(0, 400));
-	p->getPhysicsBody()->applyForce(Vect(0, 400));
+	p->getPhysicsBody()->applyImpulse(Vect(0, 140));
+	//p->getPhysicsBody()->applyForce(Vect(0, 400));
 }
 
 void Player::initPlayer()

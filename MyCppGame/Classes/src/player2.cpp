@@ -49,3 +49,9 @@ void Player2::p2Movement(Player2* p, bool dir) {
 	else
 		p->getPhysicsBody()->setVelocity(Vect(300, 0));
 }
+
+void Player2::p2Jump(Player2* p) {
+	CCLOG("Inside jump method within player class");
+	p->getPhysicsBody()->applyImpulse(Vect(0, 160));
+	//p->getPhysicsBody()->applyForce(Vect(0, 400));
+}

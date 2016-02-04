@@ -31,7 +31,7 @@ TowerGun * TowerGun::create(Vec2 position)
 		auto trapBody = PhysicsBody::createCircle(pSprite->getContentSize().width / 2, PhysicsMaterial(100, 0, 0));
 		trapBody->setRotationEnable(true);
 		trapBody->setGravityEnable(false);
-		trapBody->setCollisionBitmask(0x000005);
+		trapBody->setCollisionBitmask(0x000004);
 		trapBody->setContactTestBitmask(true);
 		//trapBody->setDynamic(false);
 		trapBody->setAngularVelocity(400);

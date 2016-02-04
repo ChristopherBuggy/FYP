@@ -286,11 +286,16 @@ bool GameScreen::init()
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 			//handleTouch(this);
+			CCLOG("Jump button has been pressed");
 			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
-			if (player1Selected == true && jump == true) {
+			if (player1Selected == true) {
 				CCLOG("I've entered the jump if statement!");
 				player->pJump(player);
 				
+			}
+			if (player2Selected == true) {
+				CCLOG("I've entered the jump if statement!");
+				player2->p2Jump(player2);
 			}
 			break;
 		case ui::Widget::TouchEventType::ENDED:

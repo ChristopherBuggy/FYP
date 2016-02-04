@@ -10,9 +10,26 @@ LOCAL_MODULE := cocos2dcpp_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
-LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+LOCAL_SRC_FILES := MyCppGame/main.cpp \
+                   ../../Classes/src/AppDelegate.cpp \
+                   ../../Classes/src/Button.cpp \
+				   ../../Classes/src/DPad.cpp \
+				   ../../Classes/src/endGame.cpp \
+				   ../../Classes/src/GameData.cpp \
+				   ../../Classes/src/GameOverScene.cpp \
+				   ../../Classes/src/GameScene.cpp \
+				   ../../Classes/src/HUD.cpp \
+				   ../../Classes/src/leftButton.cpp \
+				   ../../Classes/src/LevelLoader.cpp \
+				   ../../Classes/src/MainMenuScene.cpp \
+				   ../../Classes/src/PauseScene.cpp \
+				   ../../Classes/src/Platforms.cpp \
+				   ../../Classes/src/Player.cpp \
+				   ../../Classes/src/player2.cpp \
+				   ../../Classes/src/Projectile.cpp \
+				   ../../Classes/src/rightButton.cpp \
+				   ../../Classes/src/TowerBase.cpp \
+				   ../../Classes/src/TowerGun.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
