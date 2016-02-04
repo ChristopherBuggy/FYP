@@ -13,6 +13,7 @@
 #include "TowerBase.h"
 #include "TowerGun.h"
 #include "endGame.h"
+#include "Button.h"
 #include <string>
 //#include "DPad.h"
 
@@ -28,12 +29,16 @@ private:
 	std::vector<endGame *> m_end;
 	std::string const END_SPRITE_BATCH = "EndDoor"; // don't forget to #include <string>
 
+	std::vector<Button *> m_button;
+	std::string const BUTTON_SPRITE_BATCH = "EndDoor";
+
 	std::vector<leftButton *> m_leftButton;
 
 	void createPlatforms();
 	void createTraps();
 	void createleftButton();
 	void createEndGame();
+	void createButton();
 
 	Player * player;
 	Player2 * player2;

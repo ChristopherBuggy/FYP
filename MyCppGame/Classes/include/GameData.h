@@ -29,6 +29,9 @@ public:
 	std::string m_towerBaseFile;
 	std::string m_endGameArea;
 	std::string m_towerGunFile;
+	//Button stuff loaded from json file
+	std::string m_buttonUnpressed;
+	std::string m_buttonPressed;
 
 	int m_towerWidth;
 	int m_towerHeight;
@@ -39,6 +42,7 @@ public:
 	int m_numberOfTowerBases;
 	int m_numberOfTraps;
 	int m_numEndGame;
+	int m_numButton;
 
 	float m_towerBaseX[52];
 	float m_towerBaseY[52];

@@ -109,6 +109,19 @@ void GameScreen::createEndGame()
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
 }
 
+void GameScreen::createButton()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+	for (int i = 0; i < ptr->m_numButton; i++)
+	{
+		Button * button = Button::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]));
+		m_button.push_back(button);
+		spritebatch->addChild(button, -5);
+	}
+	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
+}
+
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
@@ -333,6 +346,7 @@ bool GameScreen::init()
 	createPlatforms();
 	createTraps();
 	createEndGame();
+	createButton();
 
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.

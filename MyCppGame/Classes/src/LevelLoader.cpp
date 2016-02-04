@@ -42,6 +42,10 @@ void LevelLoader::loadGameData()
 	ptr->m_towerGunFile = tower["tower_gun_file"].GetString();
 	//End game
 	ptr->m_endGameArea = tower["end_game_file"].GetString();
+	//loading the button both pressed and unpressed.
+	//Going to have to change hte button when I contact it. I'll try sort that.
+	ptr->m_buttonUnpressed = tower["button_game_file"].GetString();
+	ptr->m_buttonPressed = tower["button_pressed_game_file"].GetString();
 
 	ptr->m_towerWidth = tower["tower_width"].GetInt();
 	ptr->m_towerHeight = tower["tower_height"].GetInt();
@@ -55,6 +59,7 @@ void LevelLoader::loadGameData()
 	ptr->m_numberOfTowerBases = tower["number_of_tower_bases"].GetInt();
 	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
 	ptr->m_numEndGame = tower["end_Game"].GetInt();
+	ptr->m_numButton = tower["num_Buttons"].GetInt();
 
 	// The "tower_bases" element is an array.
 	Value const & towerBases = tower["tower_bases"];
