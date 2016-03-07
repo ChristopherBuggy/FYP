@@ -19,6 +19,7 @@ Player * Player::create()
 		player1Body->setRotationEnable(false);
 		player1Body->setCollisionBitmask(0x000001);
 		player1Body->setContactTestBitmask(true);
+
 		player1Body->setDynamic(true);
 		//player1Body->setVelocity(Vect(100, 247));
 		player1Body->setLinearDamping(0);

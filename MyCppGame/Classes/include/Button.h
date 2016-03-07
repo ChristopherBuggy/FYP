@@ -14,6 +14,7 @@ public:
 
 	static Button * create(cocos2d::Vec2 position);
 
+	void changeSprite(Button* b);
 	void initOptions(cocos2d::Vec2 position);
 
 	void update(float dt);

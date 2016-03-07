@@ -20,33 +20,33 @@ Button * Button::create(Vec2 position)
 	auto spritecache = SpriteFrameCache::getInstance();
 	spritecache->addSpriteFramesWithFile(ptr->m_textureAtlasPlistFile);
 
-	Button* pSprite = new Button();
-	if (pSprite->initWithSpriteFrameName(ptr->m_buttonUnpressed))
+	Button* pButton = new Button();
+	if (pButton->initWithSpriteFrameName(ptr->m_buttonUnpressed))
 	{
-		pSprite->autorelease();
+		pButton->autorelease();
 		//The thing below. Use that to change sprite when pressed!
-		//pSprite->setSpriteFrame(ptr->m_buttonPressed);
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		//pSprite->initOptions(position);
-		pSprite->setPosition(525, 239);
+		pButton->setPosition(525, 239);
 		//Body for the trap!
-		auto buttonBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(100, 0, 0));
+		auto buttonBody = PhysicsBody::createBox(pButton->getContentSize(), PhysicsMaterial(100, 0, 0));
 		buttonBody->setGravityEnable(false);
 		buttonBody->setDynamic(false);
 		buttonBody->setCollisionBitmask(0x000005);
 		buttonBody->setContactTestBitmask(true);
 
 		//Assign the body to sprite
-		pSprite->setPhysicsBody(buttonBody);
+		pButton->setPhysicsBody(buttonBody);
 
 		//Othe stuff that may or may not be needed.
-		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.75);
+		pButton->setAnchorPoint(Point(0.5f, 0.5f));
+		pButton->setScale(.75);
 
 
-		return pSprite;
+		return pButton;
 	}
 
-	CC_SAFE_DELETE(pSprite);
+	CC_SAFE_DELETE(pButton);
 	return NULL;
 }
 
@@ -56,8 +56,10 @@ void Button::initOptions(Vec2 position)
 
 	// Set the anchor point lower on the y-axis for the tower gun, so rotations look better.
 }
-
-
+void Button::changeSprite(Button* b)
+{
+	//b->setSpriteFrame(ptr->m_buttonPressed);
+}
 
 void Button::update(float dt)
 {

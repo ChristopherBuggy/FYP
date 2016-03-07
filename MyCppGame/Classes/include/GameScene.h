@@ -40,6 +40,7 @@ private:
 	void createEndGame();
 	void createButton();
 
+	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	Player * player;
 	Player2 * player2;
 
@@ -63,7 +64,8 @@ public:
 	// Called when user pauses gameplay.
 	void activatePauseScene(Ref *pSender);
 	// Called at game over 
-	void activateGameOverScene(Ref *pSender);
+	void activateGameOverScene(float dt);
+
 	void GameScreen::MovementRight();
 	void GameScreen::MovementLeft();
 	void GameScreen::playerOneSelected();

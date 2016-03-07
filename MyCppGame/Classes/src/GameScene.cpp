@@ -10,7 +10,7 @@ Scene* GameScreen::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.81f));
 	auto layer = GameScreen::create();
@@ -27,7 +27,7 @@ void GameScreen::activatePauseScene(Ref *pSender)
 	Director::getInstance()->pushScene(scene);
 }
 
-void GameScreen::activateGameOverScene(Ref *pSender)
+void GameScreen::activateGameOverScene(float dt)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(scene);
@@ -160,6 +160,7 @@ void GameScreen::showTower()
 	this->addChild(m_towerGun);
 	m_gameState = GameStates::GameRunning;
 }
+
 
 bool GameScreen::init()
 {
@@ -356,6 +357,11 @@ bool GameScreen::init()
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();
+
+	auto contactListener = EventListenerPhysicsContact::create();
+
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScreen::onContactBegin, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	return true;
 }
 
@@ -374,4 +380,26 @@ void GameScreen::addEvents()
 	};
 
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener1, 30);
+}
+
+bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
+{
+	PhysicsBody *a = contact.getShapeA()->getBody();
+	PhysicsBody *b = contact.getShapeB()->getBody();
+
+	//check if the bodies have collided.
+	if ((0x000001 == a->getCollisionBitmask() && 0x000006 == b->getCollisionBitmask()) || (0x000006 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		CCLOG("Collision has occured");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+		this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+	}
+
+	if ((0x000001 == a->getCollisionBitmask() && 0x000005 == b->getCollisionBitmask()) || (0x000005 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		CCLOG("Collision has occured");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+		this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+	}
+	return true;
 }
