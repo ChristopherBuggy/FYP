@@ -28,12 +28,15 @@ Button * Button::create(Vec2 position)
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		//pSprite->initOptions(position);
 		pButton->setPosition(525, 239);
+		pButton->setTag(20);
+
 		//Body for the trap!
 		auto buttonBody = PhysicsBody::createBox(pButton->getContentSize(), PhysicsMaterial(100, 0, 0));
 		buttonBody->setGravityEnable(false);
 		buttonBody->setDynamic(false);
 		buttonBody->setCollisionBitmask(0x000005);
 		buttonBody->setContactTestBitmask(true);
+		buttonBody->setTag(20);
 
 		//Assign the body to sprite
 		pButton->setPhysicsBody(buttonBody);

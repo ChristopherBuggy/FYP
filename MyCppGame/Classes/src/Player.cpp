@@ -14,11 +14,13 @@ Player * Player::create()
 		player->initPlayer();
 		//cocos2d::Size size(60, 120);
 		player->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y));
-		
+		player->setTag(10);
+
 		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 0, 10));
 		player1Body->setRotationEnable(false);
 		player1Body->setCollisionBitmask(0x000001);
 		player1Body->setContactTestBitmask(true);
+		player1Body->setTag(10);
 
 		player1Body->setDynamic(true);
 		//player1Body->setVelocity(Vect(100, 247));
@@ -60,5 +62,10 @@ void Player::pJump(Player* p) {
 void Player::initPlayer()
 {
 
+}
+
+void Player::respawnPoint(Player* p)
+{
+	p->setPosition(100, 100);
 }
 

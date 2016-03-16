@@ -27,6 +27,8 @@ TowerGun * TowerGun::create(Vec2 position)
 
 		//pSprite->initOptions(position);
 		pSprite->setPosition(500, (position.y + origin.y + pSprite->getContentSize().height / 4) + 20);
+		pSprite->setTag(21);
+
 		//Body for the trap!
 		auto trapBody = PhysicsBody::createCircle(pSprite->getContentSize().width / 2, PhysicsMaterial(100, 0, 0));
 		trapBody->setRotationEnable(true);
@@ -35,10 +37,11 @@ TowerGun * TowerGun::create(Vec2 position)
 		trapBody->setContactTestBitmask(true);
 		//trapBody->setDynamic(false);
 		trapBody->setAngularVelocity(400);
-
+		trapBody->setTag(20);
 		//Assign the body to sprite
 		pSprite->setPhysicsBody(trapBody);
-		
+				
+
 		//Othe stuff that may or may not be needed.
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
 		pSprite->setScale(.33);
@@ -63,4 +66,9 @@ void TowerGun::initOptions(Vec2 position)
 void TowerGun::update(float dt) 
 {
 		
+}
+
+void TowerGun::removeTrap(TowerGun* trapBody)
+{
+	trapBody->removeFromParentAndCleanup(true);
 }

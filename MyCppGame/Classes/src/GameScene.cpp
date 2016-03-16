@@ -10,7 +10,7 @@ Scene* GameScreen::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.81f));
 	auto layer = GameScreen::create();
@@ -187,6 +187,7 @@ bool GameScreen::init()
 
 	bool dir;
 	bool jump = true;
+	bool removeTraps = false;
 
 	//Edge body created. Adding screen Boundry. 
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3);
@@ -277,6 +278,7 @@ bool GameScreen::init()
 	this->addChild(rightbutton, 10);
 
 	int stop;
+
 	//JumpButton to move the player.
 	auto jumpbutton = ui::Button::create("GameScreen/jumpButtonIdle.png",
 		"GameScreen/jumpButtonActive.png");
@@ -338,6 +340,7 @@ bool GameScreen::init()
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
+
 	this->addChild(player, 5);	
 
 	//Same comment applies for player two as player one!
@@ -353,7 +356,12 @@ bool GameScreen::init()
 	createTraps();
 	createEndGame();
 	createButton();
-
+	
+	if (removeTraps == true)
+	{
+		CCLOG("Remove traps has been entered");
+		removeTraps = false;
+	}
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();
@@ -387,19 +395,73 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
 
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+
+	if ((nodeA&&nodeB))
+	{
+		if ((nodeA->getTag() == 10))
+		{
+			if (nodeB->getTag() == 20)
+			{
+				//trap->removeTrap(trap);
+				//removeTraps = true;
+				//m_traps->
+				//nodeB->removeFromParentAndCleanup(true);
+				for (int i = 0; i < m_traps.size(); i++)
+				{
+					auto trap = m_traps.at(i);
+					Director::getInstance()->getRunningScene()->removeChild(trap);
+					//iter = m_projectiles.erase(iter);
+					delete m_traps.at(i);
+					//m_traps[i]->removeFromParentAndCleanup(true);
+				}	
+				m_traps.clear();
+			}
+		}
+
+		if ((nodeA->getTag() == 20))
+		{
+			if (nodeB->getTag() == 10)
+			{
+				nodeA->removeFromParentAndCleanup(true);
+			}
+		}
+	}
+	
+
+
 	//check if the bodies have collided.
 	if ((0x000001 == a->getCollisionBitmask() && 0x000006 == b->getCollisionBitmask()) || (0x000006 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
 	{
-		CCLOG("Collision has occured");
+		CCLOG("Collision has occured between Jack and the door!");
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
 	}
 
 	if ((0x000001 == a->getCollisionBitmask() && 0x000005 == b->getCollisionBitmask()) || (0x000005 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
 	{
-		CCLOG("Collision has occured");
+		CCLOG("Collision has occured between jack and the button!");
+		for (int i = 0; i < m_traps.size(); i++)
+		{
+			auto trap = m_traps.at(i);
+
+			sceneWorld->removeBody(trap->getPhysicsBody());
+
+			Director::getInstance()->getRunningScene()->removeChild(trap);
+			//iter = m_projectiles.erase(iter);
+			delete m_traps.at(i);
+			//m_traps[i]->removeFromParentAndCleanup(true);
+		}
+		m_traps.clear();
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
-		this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+	}
+
+	if ((0x000001 == a->getCollisionBitmask() && 0x000004 == b->getCollisionBitmask()) || (0x000004 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		player->respawnPoint(player);
+		CCLOG("Collision has occured between jack and the trap!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 	return true;
 }

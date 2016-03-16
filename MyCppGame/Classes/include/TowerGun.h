@@ -18,4 +18,5 @@ public:
 
 	void update(float dt);
 
+	void removeTrap(TowerGun* trapBody);
 };

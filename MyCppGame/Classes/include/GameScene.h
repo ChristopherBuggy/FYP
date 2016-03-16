@@ -41,6 +41,8 @@ private:
 	void createButton();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
+	bool removeTraps;
+
 	Player * player;
 	Player2 * player2;
 
@@ -49,6 +51,8 @@ private:
 
 	GameStates m_gameState; 
 	TowerGun * m_towerGun;
+
+	TowerGun * trap;
 
 	void showTower();
 
