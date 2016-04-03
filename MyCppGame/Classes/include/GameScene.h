@@ -32,9 +32,13 @@ private:
 	std::vector<Button *> m_button;
 	std::string const BUTTON_SPRITE_BATCH = "EndDoor";
 
+	std::vector<TowerBase *> m_hiddenPlats;
+	std::string const HIDDEN_SPRITE_BATCH = "hiddenPlatforms";
+
 	std::vector<leftButton *> m_leftButton;
 
 	void createPlatforms();
+	void createHiddenPlatforms();
 	void createTraps();
 	void createleftButton();
 	void createEndGame();
@@ -42,6 +46,7 @@ private:
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;
+	bool addPlatfroms = false;
 
 	Player * player;
 	Player2 * player2;

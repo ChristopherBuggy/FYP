@@ -83,6 +83,21 @@ void GameScreen::createPlatforms()
 	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
 }
 
+void GameScreen::createHiddenPlatforms()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+
+	for (int i = 0; i < ptr->m_numberOfHiddenPlatforms; i++)
+	{
+		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState);
+		m_hiddenPlats.push_back(HiddenPlat);
+		spritebatch->addChild(HiddenPlat, -5);
+	}
+	this->addChild(spritebatch, 1, HIDDEN_SPRITE_BATCH);
+}
+
+
 void GameScreen::createTraps() 
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
@@ -356,12 +371,17 @@ bool GameScreen::init()
 	createTraps();
 	createEndGame();
 	createButton();
-	
-	if (removeTraps == true)
+
+	if (addPlatfroms == true)
+	{
+		createHiddenPlatforms();
+	}
+
+	/*if (removeTraps == true)
 	{
 		CCLOG("Remove traps has been entered");
 		removeTraps = false;
-	}
+	}*/
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
 	this->scheduleUpdate();
@@ -415,8 +435,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 					//iter = m_projectiles.erase(iter);
 					delete m_traps.at(i);
 					//m_traps[i]->removeFromParentAndCleanup(true);
+					addPlatfroms = true;
 				}	
 				m_traps.clear();
+				//GameScreen::addPlatfroms = true;
 			}
 		}
 
@@ -424,9 +446,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (nodeB->getTag() == 10)
 			{
-				nodeA->removeFromParentAndCleanup(true);
+				//nodeA->removeFromParentAndCleanup(true);
 			}
 		}
+		//return addPlatfroms;
 	}
 	
 
@@ -449,11 +472,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 			sceneWorld->removeBody(trap->getPhysicsBody());
 
 			Director::getInstance()->getRunningScene()->removeChild(trap);
-			//iter = m_projectiles.erase(iter);
-			delete m_traps.at(i);
-			//m_traps[i]->removeFromParentAndCleanup(true);
+			m_traps[i]->removeFromParentAndCleanup(true);
 		}
 		m_traps.clear();
+		GameScreen::addPlatfroms = true;
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 

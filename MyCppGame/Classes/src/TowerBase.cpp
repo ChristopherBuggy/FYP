@@ -17,6 +17,30 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 	spritecache->addSpriteFramesWithFile(ptr->m_textureAtlasPlistFile);		
 
 	TowerBase* pSprite = new TowerBase(gameState);
+	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile))
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+		// More on this below
+		//pSprite->addEvents();
+
+		auto midPlatBody = PhysicsBody::createBox(Size(137.0f, 125.0f), PhysicsMaterial(0, 0, 0));
+		midPlatBody->setCollisionBitmask(0x000003);
+		midPlatBody->setRotationEnable(false);
+		midPlatBody->setContactTestBitmask(true);
+		midPlatBody->setDynamic(false);
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(midPlatBody);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.33);
+
+		return pSprite;
+	}
+
 	if (pSprite->initWithSpriteFrameName(ptr->m_towerBaseFile))
 	{
 		// This means the sprite will be deleted when it has no references to it.
@@ -41,6 +65,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		return pSprite;
 	}
 
+	
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }
