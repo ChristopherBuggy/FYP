@@ -54,7 +54,7 @@ void Player2::p2Jump(bool p2Jumped, Player2* p) {
 	CCLOG("Inside jump method within player class");
 	if (p2Jumped == false)
 	{
-		p->getPhysicsBody()->applyImpulse(Vect(0, 160));
+		p->getPhysicsBody()->applyImpulse(Vect(0, 300));
 		//p->getPhysicsBody()->applyForce(Vect(0, 400));
 	}
 	
