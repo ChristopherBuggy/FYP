@@ -5,6 +5,7 @@
     "texture_atlas_plist_file": "GameScreen/levelOne.plist",
     "tower": {
       "tower_base_file": "midPiece.png",
+      "hidden_plat_file": "midPiece.png",
       "tower_gun_file": "blade.png",
       "end_game_file": "door.png",
       "button_game_file": "buttonUnpressed.png",
@@ -34,6 +35,17 @@
         {
           "x": 50,
           "y": 50
+        }
+      ],
+      "number_of_hidden_platforms": 2,
+      "hiddenPlat": [
+        {
+          "x": 370,
+          "y": 210
+        },
+        {
+          "x": 325,
+          "y": 210
         }
       ],
       "number_of_tower_bases": 52,

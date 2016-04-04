@@ -12,11 +12,11 @@ Scene* GameScreen::createScene()
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, -9.81f));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+
 	auto layer = GameScreen::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 	scene->addChild(layer);
-	
 	
 	return scene;
 }
@@ -47,6 +47,8 @@ void GameScreen::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d:
 void GameScreen::playerOneSelected() {
 	player1Selected = true;
 	player2Selected = false;
+	//player->getPhysicsBody()->setDynamic(true);
+	//player2->getPhysicsBody()->setDynamic(false);
 }
 
 void GameScreen::playerTwoSelected() {
@@ -82,6 +84,21 @@ void GameScreen::createPlatforms()
 	}
 	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
 }
+
+void GameScreen::createHiddenPlatforms()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+
+	for (int i = 0; i < ptr->m_numberOfHiddenPlatforms; i++)
+	{
+		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState);
+		m_hiddenPlats.push_back(HiddenPlat);
+		spritebatch->addChild(HiddenPlat, -5);
+	}
+	this->addChild(spritebatch, 1, HIDDEN_SPRITE_BATCH);
+}
+
 
 void GameScreen::createTraps() 
 {
@@ -125,16 +142,10 @@ void GameScreen::createButton()
 //Update for GameLoop
 void GameScreen::update(float dt)
 {
-	switch (m_gameState)
+	if (addPlatfroms == true)
 	{
-	case GameStates::GameInit:
-		showTower();        // add this
-		destroyBases();     // add this
-		break;
-	case GameStates::GameRunning:
-		break;
-	default:
-		break;
+		createHiddenPlatforms();
+		addPlatfroms = false;
 	}
 }
 
@@ -174,7 +185,7 @@ bool GameScreen::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/main.mp3", true);
 
 	//GameState initial setting.
-	m_gameState = GameStates::PlaceGunTower;
+	//m_gameState = GameStates::PlaceGunTower;
 	//Listeners for touch events created.
 	auto listener = EventListenerTouchAllAtOnce::create();
 	listener->onTouchesBegan = CC_CALLBACK_2(GameScreen::onTouchesBegan, this);
@@ -188,9 +199,10 @@ bool GameScreen::init()
 	bool dir;
 	bool jump = true;
 	bool removeTraps = false;
+	bool addPlatfroms = false;
 
 	//Edge body created. Adding screen Boundry. 
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3);
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	edgeNode->setPhysicsBody(edgeBody);
@@ -294,12 +306,13 @@ bool GameScreen::init()
 			if (player1Selected == true) {
 				CCLOG("I've entered the jump if statement!");
 				player->pJump(player);
-				
+
 			}
 			if (player2Selected == true) {
 				CCLOG("I've entered the jump if statement!");
 				player2->p2Jump(player2);
 			}
+			
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			break;
@@ -340,7 +353,6 @@ bool GameScreen::init()
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
-
 	this->addChild(player, 5);	
 
 	//Same comment applies for player two as player one!
@@ -357,19 +369,21 @@ bool GameScreen::init()
 	createEndGame();
 	createButton();
 	
-	if (removeTraps == true)
+
+	/*if (removeTraps == true)
 	{
 		CCLOG("Remove traps has been entered");
 		removeTraps = false;
-	}
+	}*/
 	//this calls an update everyloop. Essentially creating your game loop!
 	//Please see "GameScene.h" for more info.
-	this->scheduleUpdate();
-
+	
 	auto contactListener = EventListenerPhysicsContact::create();
 
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScreen::onContactBegin, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	this->scheduleUpdate();
+
 	return true;
 }
 
@@ -415,8 +429,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 					//iter = m_projectiles.erase(iter);
 					delete m_traps.at(i);
 					//m_traps[i]->removeFromParentAndCleanup(true);
+					addPlatfroms = true;
 				}	
 				m_traps.clear();
+				//GameScreen::addPlatfroms = true;
 			}
 		}
 
@@ -424,9 +440,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (nodeB->getTag() == 10)
 			{
-				nodeA->removeFromParentAndCleanup(true);
+				//nodeA->removeFromParentAndCleanup(true);
 			}
 		}
+		//return addPlatfroms;
 	}
 	
 
@@ -449,11 +466,10 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 			sceneWorld->removeBody(trap->getPhysicsBody());
 
 			Director::getInstance()->getRunningScene()->removeChild(trap);
-			//iter = m_projectiles.erase(iter);
-			delete m_traps.at(i);
-			//m_traps[i]->removeFromParentAndCleanup(true);
+			m_traps[i]->removeFromParentAndCleanup(true);
 		}
 		m_traps.clear();
+		addPlatfroms = true;
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 

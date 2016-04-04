@@ -27,6 +27,7 @@ public:
 	std::string m_textureAtlasPlistFile;
 	// Tower base and tower related fields.
 	std::string m_towerBaseFile;
+	std::string m_hiddenPlatFile;
 	std::string m_endGameArea;
 	std::string m_towerGunFile;
 	//Button stuff loaded from json file
@@ -40,12 +41,16 @@ public:
 	float m_towerRotationOriginX;
 	float m_towerRotationOriginY;
 	int m_numberOfTowerBases;
+	int m_numberOfHiddenPlatforms;
 	int m_numberOfTraps;
 	int m_numEndGame;
 	int m_numButton;
 
 	float m_towerBaseX[52];
 	float m_towerBaseY[52];
+
+	float m_hiddenPlatsX[2];
+	float m_hiddenPlatsY[2];
 
 	float m_trapX[2];
 	float m_trapY[2];

@@ -38,10 +38,13 @@ void LevelLoader::loadGameData()
 	assert(tower.IsObject());
 	// Get the tower properties.
 	ptr->m_towerBaseFile = tower["tower_base_file"].GetString();
+	//Hidden plats 
+	ptr->m_hiddenPlatFile = tower["hidden_plat_file"].GetString();
 	//Traps
 	ptr->m_towerGunFile = tower["tower_gun_file"].GetString();
 	//End game
 	ptr->m_endGameArea = tower["end_game_file"].GetString();
+
 	//loading the button both pressed and unpressed.
 	//Going to have to change hte button when I contact it. I'll try sort that.
 	ptr->m_buttonUnpressed = tower["button_game_file"].GetString();
@@ -57,6 +60,7 @@ void LevelLoader::loadGameData()
 	ptr->m_towerRotationOriginX = towerRotationOrigin["x"].GetInt();
 	ptr->m_towerRotationOriginY = towerRotationOrigin["y"].GetInt();
 	ptr->m_numberOfTowerBases = tower["number_of_tower_bases"].GetInt();
+	ptr->m_numberOfHiddenPlatforms = tower["number_of_hidden_platforms"].GetInt();
 	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
 	ptr->m_numEndGame = tower["end_Game"].GetInt();
 	ptr->m_numButton = tower["num_Buttons"].GetInt();
@@ -65,11 +69,19 @@ void LevelLoader::loadGameData()
 	Value const & towerBases = tower["tower_bases"];
 	Value const & traps = tower["traps"];
 	Value const & endGame = tower["endGame"];
+	Value const & hiddenPlatforms = tower["hiddenPlat"];
 
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
 		ptr->m_towerBaseX[i] = towerBases[i]["x"].GetInt();
 		ptr->m_towerBaseY[i] = towerBases[i]["y"].GetInt();
+	}
+
+	//Hidden Platfrom Array
+	for (int i = 0; i < hiddenPlatforms.Size(); i++)
+	{
+		ptr->m_hiddenPlatsX[i] = hiddenPlatforms[i]["x"].GetInt();
+		ptr->m_hiddenPlatsY[i] = hiddenPlatforms[i]["y"].GetInt();
 	}
 
 	//trap array!
