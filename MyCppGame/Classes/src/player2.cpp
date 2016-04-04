@@ -15,7 +15,7 @@ Player2 * Player2::create()
 
 		player2->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-		auto player2Body = PhysicsBody::createBox(player2->getContentSize(), PhysicsMaterial(0, 1, 0));
+		auto player2Body = PhysicsBody::createBox(player2->getContentSize(), PhysicsMaterial(0, 1, 10));
 		player2Body->setCollisionBitmask(0x000002);
 		player2Body->setRotationEnable(false);
 		player2Body->setContactTestBitmask(true);
@@ -50,8 +50,12 @@ void Player2::p2Movement(Player2* p, bool dir) {
 		p->getPhysicsBody()->setVelocity(Vect(300, 0));
 }
 
-void Player2::p2Jump(Player2* p) {
+void Player2::p2Jump(bool p2Jumped, Player2* p) {
 	CCLOG("Inside jump method within player class");
-	p->getPhysicsBody()->applyImpulse(Vect(0, 160));
-	//p->getPhysicsBody()->applyForce(Vect(0, 400));
+	if (p2Jumped == false)
+	{
+		p->getPhysicsBody()->applyImpulse(Vect(0, 160));
+		//p->getPhysicsBody()->applyForce(Vect(0, 400));
+	}
+	
 }

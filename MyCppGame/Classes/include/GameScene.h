@@ -50,7 +50,10 @@ private:
 	bool addPlatfroms = false;
 
 	Player * player;
+	bool p1Jumped = false;
+
 	Player2 * player2;
+	bool p2Jumped = false;
 
 	leftButton * left;
 	rightButton * right;

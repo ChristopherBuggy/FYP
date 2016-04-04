@@ -147,6 +147,16 @@ void GameScreen::update(float dt)
 		createHiddenPlatforms();
 		addPlatfroms = false;
 	}
+
+	if (player->getPhysicsBody()->getVelocity().y == 0)
+	{
+		p1Jumped = false;
+	}
+
+	if (player2->getPhysicsBody()->getVelocity().y == 0)
+	{
+		p2Jumped = false;
+	}
 }
 
 void GameScreen::destroyBases()
@@ -305,12 +315,13 @@ bool GameScreen::init()
 			//player->getPhysicsBody()->applyForce(Vec2(1000, 0));
 			if (player1Selected == true) {
 				CCLOG("I've entered the jump if statement!");
-				player->pJump(player);
-
+				player->pJump(p1Jumped, player);
+				p1Jumped = true;
 			}
 			if (player2Selected == true) {
 				CCLOG("I've entered the jump if statement!");
-				player2->p2Jump(player2);
+				player2->p2Jump(p2Jumped, player2);
+				p2Jumped = true;
 			}
 			
 			break;

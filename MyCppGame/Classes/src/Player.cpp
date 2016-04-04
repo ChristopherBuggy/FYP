@@ -56,10 +56,14 @@ void Player::pMovement(Player* p, bool dir) {
 		p->getPhysicsBody()->setVelocity(Vect(400, 0));
 }
 
-void Player::pJump(Player* p) {
+void Player::pJump(bool pJumped, Player* p) {
 	CCLOG("Inside jump method within player Jack class");
-	p->getPhysicsBody()->applyImpulse(Vect(0, 200));
-	//p->getPhysicsBody()->applyForce(Vect(0, 40));
+	if (pJumped == false)
+	{
+		p->getPhysicsBody()->applyImpulse(Vect(0, 250));
+		//p->getPhysicsBody()->applyForce(Vect(0, 40));
+	}
+	
 }
 
 void Player::initPlayer()
