@@ -46,7 +46,8 @@ private:
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;
-	bool addPlatfroms;
+
+	bool addPlatfroms = false;
 
 	Player * player;
 	Player2 * player2;

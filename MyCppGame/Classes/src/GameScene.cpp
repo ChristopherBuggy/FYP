@@ -368,7 +368,6 @@ bool GameScreen::init()
 	createTraps();
 	createEndGame();
 	createButton();
-	
 
 	/*if (removeTraps == true)
 	{
@@ -470,6 +469,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		m_traps.clear();
 		addPlatfroms = true;
+
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 
