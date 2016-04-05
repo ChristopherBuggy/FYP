@@ -157,6 +157,18 @@ void GameScreen::update(float dt)
 	{
 		p2Jumped = false;
 	}
+
+	if (playerOneDead == true)
+	{
+		player->respawnPoint(player);
+		playerOneDead = false;
+	}
+
+	if (playerTwoDead == true)
+	{
+		player2->respawnPoint(player2);
+		playerTwoDead = false;
+	}
 }
 
 void GameScreen::destroyBases()
@@ -486,7 +498,16 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 
 	if ((0x000001 == a->getCollisionBitmask() && 0x000004 == b->getCollisionBitmask()) || (0x000004 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
 	{
-		player->respawnPoint(player);
+		//player->respawnPoint(player);
+		playerOneDead = true;
+		CCLOG("Collision has occured between jack and the trap!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+
+	if ((0x000002 == a->getCollisionBitmask() && 0x000004 == b->getCollisionBitmask()) || (0x000004 == a->getCollisionBitmask() && 0x000002 == b->getCollisionBitmask()))
+	{
+		//player->respawnPoint(player);
+		playerTwoDead = true;
 		CCLOG("Collision has occured between jack and the trap!");
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}

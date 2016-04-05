@@ -12,13 +12,13 @@ Player * Player::create()
 	{
 		player->autorelease();
 		player->initPlayer();
-		//cocos2d::Size size(60, 120);
-		player->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y));
-		player->setTag(10);
 
-		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 1, 10));
-		player1Body->setRotationEnable(false);
+		player->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y));
+
+		auto player1Body = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(0, 0, 0));
 		player1Body->setCollisionBitmask(0x000001);
+		player1Body->setRotationEnable(false);
+		//player1Body->setCategoryBitmask(0x02);
 		player1Body->setContactTestBitmask(true);
 		player1Body->setTag(10);
 

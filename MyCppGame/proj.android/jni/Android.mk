@@ -18,6 +18,7 @@ LOCAL_SRC_FILES := MyCppGame/main.cpp \
 				   ../../Classes/src/GameData.cpp \
 				   ../../Classes/src/GameOverScene.cpp \
 				   ../../Classes/src/GameScene.cpp \
+				   ../../Classes/src/HelloWorldScene.cpp \
 				   ../../Classes/src/HUD.cpp \
 				   ../../Classes/src/leftButton.cpp \
 				   ../../Classes/src/LevelLoader.cpp \

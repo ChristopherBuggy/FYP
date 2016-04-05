@@ -49,6 +49,9 @@ private:
 
 	bool addPlatfroms = false;
 
+	bool playerOneDead = false;
+	bool playerTwoDead = false;
+
 	Player * player;
 	bool p1Jumped = false;
 

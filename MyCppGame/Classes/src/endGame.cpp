@@ -31,13 +31,15 @@ endGame * endGame::create(Vec2 position)
 		auto endBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
 		endBody->setCollisionBitmask(0x000006);
+		//endBody->setCategoryBitmask(0x02); //I want to keep this in the same catagory as the players s they can pass through 
+										   //but I can still detect collision with the bitmask.
 		endBody->setContactTestBitmask(true);
 		endBody->setDynamic(false);
 		endBody->setAngularVelocity(400);
-
+		
 		//Assign the body to sprite
 		pSprite->setPhysicsBody(endBody);
-
+	
 		//Othe stuff that may or may not be needed.
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
 		pSprite->setScale(.33);
