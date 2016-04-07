@@ -43,7 +43,7 @@ Button * Button::create(Vec2 position)
 
 		//Othe stuff that may or may not be needed.
 		pButton->setAnchorPoint(Point(0.5f, 0.5f));
-		pButton->setScale(.75);
+		//pButton->setScale(.75);
 
 
 		return pButton;

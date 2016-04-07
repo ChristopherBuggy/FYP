@@ -51,9 +51,6 @@
     <ClCompile Include="..\Classes\src\TowerGun.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\src\Projectile.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\src\leftButton.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\TowerGun.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\Projectile.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\leftButton.h">

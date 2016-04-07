@@ -26,7 +26,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		// More on this below
 		//pSprite->addEvents();
 
-		auto midPlatBody = PhysicsBody::createBox(Size(137.0f, 125.0f), PhysicsMaterial(0, 0, 0));
+		auto midPlatBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 		midPlatBody->setCollisionBitmask(0x000003);
 		midPlatBody->setRotationEnable(false);
 		midPlatBody->setContactTestBitmask(true);
@@ -36,7 +36,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 
 		//Set the anchor point. Probably not needed but I'd rather have it done! 
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.33);
+		//pSprite->setScale(.33);
 
 		return pSprite;
 	}
@@ -50,7 +50,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		// More on this below
 		//pSprite->addEvents();
 
-		auto midPlatBody = PhysicsBody::createBox(Size(137.0f, 125.0f), PhysicsMaterial(0, 0, 0));
+		auto midPlatBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 		midPlatBody->setCollisionBitmask(0x000003);
 		midPlatBody->setRotationEnable(false);
 		midPlatBody->setContactTestBitmask(true);

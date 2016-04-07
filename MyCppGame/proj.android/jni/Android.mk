@@ -5,12 +5,9 @@ include $(CLEAR_VARS)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
-
 LOCAL_MODULE := cocos2dcpp_shared
-
 LOCAL_MODULE_FILENAME := libcocos2dcpp
-
-LOCAL_SRC_FILES := MyCppGame/main.cpp \
+LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/src/AppDelegate.cpp \
                    ../../Classes/src/Button.cpp \
 				   ../../Classes/src/DPad.cpp \
@@ -27,12 +24,11 @@ LOCAL_SRC_FILES := MyCppGame/main.cpp \
 				   ../../Classes/src/Platforms.cpp \
 				   ../../Classes/src/Player.cpp \
 				   ../../Classes/src/player2.cpp \
-				   ../../Classes/src/Projectile.cpp \
 				   ../../Classes/src/rightButton.cpp \
 				   ../../Classes/src/TowerBase.cpp \
-				   ../../Classes/src/TowerGun.cpp 
+				   ../../Classes/src/TowerGun.cpp
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes/include
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END

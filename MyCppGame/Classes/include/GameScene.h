@@ -82,10 +82,10 @@ public:
 	// Called at game over 
 	void activateGameOverScene(float dt);
 
-	void GameScreen::MovementRight();
-	void GameScreen::MovementLeft();
-	void GameScreen::playerOneSelected();
-	void GameScreen::playerTwoSelected();
+	void MovementRight();
+	void MovementLeft();
+	void playerOneSelected();
+	void playerTwoSelected();
 	bool player1Selected;
 	bool player2Selected;
 	void addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin);
