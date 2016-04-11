@@ -33,7 +33,7 @@ Player * Player::create()
 		player->setPosition(Vec2(origin.x + visibleSize.width / 2,
 			origin.y + visibleSize.height / 4));
 		player->setAnchorPoint(Point(0.5f, 0.5f));
-		player->setScale(.33);
+		player->setScale(.8);
 		//player->pMovement(player);
 		
 		//this->addChild(sprite);
@@ -48,7 +48,9 @@ Player * Player::create()
 void Player::pMovement(Player* p, bool dir) {
 	if (dir == true) {
 		//int pos = p->getPositionX() - 10;
-		p->getPhysicsBody()->setVelocity(Vect(-400, 0));
+		auto pBody = p->getPhysicsBody();
+		float yVelocity = p->getPhysicsBody()->getVelocity().y;
+		p->getPhysicsBody()->setVelocity(Vect(-400, yVelocity));
 		//p->getPhysicsBody()->setPositionOffset(Vect(-400, 0));
 		//p->setPositionX(pos);
 	}

@@ -4,6 +4,8 @@
 #include "leftButton.h"
 #include "rightButton.h"
 #include "SimpleAudioEngine.h"
+#define CCRANDOM_0_1() ((float)rand()/RAND_MAX))
+
 USING_NS_CC;
 
 Scene* GameScreen::createScene()
@@ -139,44 +141,58 @@ void GameScreen::createButton()
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
 }
 
-//Update for GameLoop
-void GameScreen::update(float dt)
-{
-	if (addPlatfroms == true)
-	{
-		createHiddenPlatforms();
-		addPlatfroms = false;
-	}
-
-	if (player->getPhysicsBody()->getVelocity().y == 0)
-	{
-		p1Jumped = false;
-	}
-
-	if (player2->getPhysicsBody()->getVelocity().y == 0)
-	{
-		p2Jumped = false;
-	}
-
-	if (playerOneDead == true)
-	{
-		player->respawnPoint(player);
-		playerOneDead = false;
-	}
-
-	if (playerTwoDead == true)
-	{
-		player2->respawnPoint(player2);
-		playerTwoDead = false;
-	}
-}
-
 void GameScreen::destroyBases()
 {
 	cocos2d::Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
 	this->removeChildByName(TOWERS_SPRITE_BATCH, true);
 	m_towerBases.clear();
 	m_towerBases.shrink_to_fit();
+}
+
+//Preload Audio
+void GameScreen::preloadAudio()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/main.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Jump.wav");
+	//Jack taking damage
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_0.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_1.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_2.wav");
+	//Jill taking Damage
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Female_Hit_0.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Female_Hit_1.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Female_Hit_2.wav");
+	//Menu sounds
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Menu_Open.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Menu_Close.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Menu_Tick.wav");
+	//Crush
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crush.wav");
+
+}
+
+void GameScreen::playAudio()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_0.wav");
+	int random = cocos2d::RandomHelper::random_int(1, 3);
+	if (playJumpSound == true)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Jump.wav", false);
+		playJumpSound = false;
+	}
+
+	if (playerOneDead == true && random == 1)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_0.wav");
+	}
+	else if (playerOneDead == true && random == 2)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_1.wav");
+	}
+	else if (playerOneDead == true && random == 3)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_2.wav");
+	}
 }
 
 void GameScreen::showTower()
@@ -194,6 +210,45 @@ void GameScreen::showTower()
 	m_gameState = GameStates::GameRunning;
 }
 
+//Update for GameLoop
+void GameScreen::update(float dt)
+{
+	playAudio();
+
+	if (addPlatfroms == true)
+	{
+		createHiddenPlatforms();
+		addPlatfroms = false;
+	}
+
+	if (player->getPhysicsBody()->getVelocity().y == 0 || playersColliding == true)
+	{
+		p1Jumped = false;
+		//playersColliding = false;
+	}
+	else
+		p1Jumped = true;
+
+	if (player2->getPhysicsBody()->getVelocity().y == 0 || playersColliding == true)
+	{
+		p2Jumped = false;
+	}
+	else
+		p2Jumped = true;
+
+	if (playerOneDead == true)
+	{
+		player->respawnPoint(player);
+		playerOneDead = false;
+	}
+
+	if (playerTwoDead == true)
+	{
+		player2->respawnPoint(player2);
+		playerTwoDead = false;
+	}
+}
+
 
 bool GameScreen::init()
 {
@@ -202,8 +257,11 @@ bool GameScreen::init()
 		return false;
 	}
 
+	preloadAudio();
+	//playAudio();
+
 	//Audio stuff created here. 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/main.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/main.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("audio/main.mp3", true);
 
 	//GameState initial setting.
@@ -253,7 +311,7 @@ bool GameScreen::init()
 		"GameScreen/leftbuttonActive.png");
 	leftbutton->setPosition(Vec2(origin.x + visibleSize.width / 10,
 		origin.y + visibleSize.height / 6));
-
+	leftbutton->setScale(2);
 	leftbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -285,7 +343,7 @@ bool GameScreen::init()
 		"GameScreen/rightbuttonActive.png");
 	rightbutton->setPosition(Vec2(origin.x + visibleSize.width / 6,
 		origin.y + visibleSize.height / 6));
-
+	rightbutton->setScale(2);
 	rightbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -318,6 +376,7 @@ bool GameScreen::init()
 		"GameScreen/jumpButtonActive.png");
 	jumpbutton->setPosition(Vec2(origin.x + visibleSize.width - 100,
 		origin.y + visibleSize.height / 6));
+	jumpbutton->setScale(2);
 	jumpbutton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -329,11 +388,13 @@ bool GameScreen::init()
 				CCLOG("I've entered the jump if statement!");
 				player->pJump(p1Jumped, player);
 				p1Jumped = true;
+				playJumpSound = true;
 			}
 			if (player2Selected == true) {
 				CCLOG("I've entered the jump if statement!");
 				player2->p2Jump(p2Jumped, player2);
 				p2Jumped = true;
+				playJumpSound = true;
 			}
 			
 			break;
@@ -355,7 +416,7 @@ bool GameScreen::init()
 		MenuItemImage::create("GameScreen/p1Idle.png",
 			"GameScreen/p1Select.png",
 			CC_CALLBACK_0(GameScreen::playerOneSelected, this));
-
+	p1Select->setScale(2);
 	p1Select->setPosition(Vec2((origin.x + visibleSize.width / 2) - 20,
 		origin.y + visibleSize.height / 10));
 	//this->addChild(p1Select, 5);
@@ -364,7 +425,7 @@ bool GameScreen::init()
 		MenuItemImage::create("GameScreen/p2Idle.png",
 			"GameScreen/p2Select.png",
 			CC_CALLBACK_0(GameScreen::playerTwoSelected, this));
-
+	p2Select->setScale(2);
 	p2Select->setPosition(Vec2((origin.x + visibleSize.width / 2) + 20,
 		origin.y + visibleSize.height / 10));
 
@@ -511,5 +572,15 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		CCLOG("Collision has occured between jack and the trap!");
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
+	if ((0x000002 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()) || (0x000001 == a->getCollisionBitmask() && 0x000002 == b->getCollisionBitmask()))
+	{
+		//player->respawnPoint(player);
+		playersColliding = true;
+		CCLOG("Collision has occured between jack and Jill!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+	else
+		playersColliding = false;
+
 	return true;
 }

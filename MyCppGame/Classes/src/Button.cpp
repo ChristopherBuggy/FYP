@@ -27,7 +27,7 @@ Button * Button::create(Vec2 position)
 		//The thing below. Use that to change sprite when pressed!
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		//pSprite->initOptions(position);
-		pButton->setPosition(525, 239);
+		pButton->setPosition(525, 250);
 		pButton->setTag(20);
 
 		//Body for the trap!
@@ -43,7 +43,7 @@ Button * Button::create(Vec2 position)
 
 		//Othe stuff that may or may not be needed.
 		pButton->setAnchorPoint(Point(0.5f, 0.5f));
-		//pButton->setScale(.75);
+		pButton->setScale(1.5);
 
 
 		return pButton;

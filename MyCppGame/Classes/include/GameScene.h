@@ -43,6 +43,8 @@ private:
 	void createleftButton();
 	void createEndGame();
 	void createButton();
+	void preloadAudio();
+	void playAudio();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;
@@ -57,6 +59,9 @@ private:
 
 	Player2 * player2;
 	bool p2Jumped = false;
+
+	bool playersColliding;
+	bool playJumpSound;
 
 	leftButton * left;
 	rightButton * right;
