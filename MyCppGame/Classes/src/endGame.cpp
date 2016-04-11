@@ -42,12 +42,11 @@ endGame * endGame::create(Vec2 position)
 	
 		//Othe stuff that may or may not be needed.
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.33);
+		//pSprite->setScale(.33);
 
 
 		return pSprite;
 	}
-
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }
@@ -55,7 +54,6 @@ endGame * endGame::create(Vec2 position)
 void endGame::initOptions(Vec2 position)
 {
 	Point origin = Director::getInstance()->getVisibleOrigin();
-
 	// Set the anchor point lower on the y-axis for the tower gun, so rotations look better.
 }
 

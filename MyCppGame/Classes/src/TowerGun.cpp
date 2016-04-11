@@ -44,7 +44,7 @@ TowerGun * TowerGun::create(Vec2 position)
 
 		//Othe stuff that may or may not be needed.
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.33);
+		//pSprite->setScale(.33);
 		
 
 		return pSprite;

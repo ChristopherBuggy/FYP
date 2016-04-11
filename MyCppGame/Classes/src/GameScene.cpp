@@ -112,7 +112,7 @@ void GameScreen::createTraps()
 		m_traps.push_back(traps);
 		spritebatch->addChild(traps, -5);
 	}
-	this->addChild(spritebatch, 1, TRAPS_SPRITE_BATCH);
+	this->addChild(spritebatch, -1, TRAPS_SPRITE_BATCH);
 }
 
 void GameScreen::createEndGame()
@@ -168,12 +168,13 @@ void GameScreen::preloadAudio()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Menu_Tick.wav");
 	//Crush
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crush.wav");
-
+	//Gore
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Gore.wav");
 }
 
 void GameScreen::playAudio()
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_0.wav");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Player_Hit_0.wav");
 	int random = cocos2d::RandomHelper::random_int(1, 3);
 	if (playJumpSound == true)
 	{
@@ -181,17 +182,38 @@ void GameScreen::playAudio()
 		playJumpSound = false;
 	}
 
+	//Play Jack hurt if certain conditions are met.
 	if (playerOneDead == true && random == 1)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_0.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Player_Hit_0.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
 	}
 	else if (playerOneDead == true && random == 2)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_1.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Player_Hit_1.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
 	}
 	else if (playerOneDead == true && random == 3)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Player_Hit_2.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Player_Hit_2.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
+	}
+
+	//Play Jack hurt if certain conditions are met.
+	if (playerTwoDead == true && random == 1)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Female_Hit_0.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
+	}
+	else if (playerTwoDead == true && random == 2)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Female_Hit_1.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
+	}
+	else if (playerTwoDead == true && random == 3)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Female_Hit_2.wav");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
 	}
 }
 
