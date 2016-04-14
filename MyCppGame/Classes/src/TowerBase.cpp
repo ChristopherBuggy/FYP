@@ -25,18 +25,20 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		pSprite->initOptions(position);
 		// More on this below
 		//pSprite->addEvents();
-
-		auto midPlatBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+		pSprite->setAnchorPoint(Vec2(0.5, 0.5));
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height -5)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
+		//midPlatBody->setPositionOffset();
 		midPlatBody->setCollisionBitmask(0x000003);
 		midPlatBody->setRotationEnable(false);
 		midPlatBody->setContactTestBitmask(true);
 		midPlatBody->setDynamic(false);
+		
 		//Assign the body to the platform sprite
 		pSprite->setPhysicsBody(midPlatBody);
 
 		//Set the anchor point. Probably not needed but I'd rather have it done! 
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.8);
+		pSprite->setScale(.85);
 
 		return pSprite;
 	}

@@ -131,13 +131,13 @@ void GameScreen::createEndGame()
 void GameScreen::createEndGameJack()
 {
 	endGame * endGamejack = endGame::create(Vec2(50, 420), 2);
-	this->addChild(endGamejack, 1);
+	this->addChild(endGamejack, -1);
 }
 
 void GameScreen::createEndGameJill()
 {
 	endGame * endGameJill = endGame::create(Vec2(100, 420), 3);
-	this->addChild(endGameJill, 1);
+	this->addChild(endGameJill, -1);
 }
 
 void GameScreen::createButton()
@@ -471,11 +471,11 @@ bool GameScreen::init()
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
-	this->addChild(player, 5);	
+	this->addChild(player, 0);	
 
 	//Same comment applies for player two as player one!
 	player2 = Player2::create();
-	this->addChild(player2, 5);
+	this->addChild(player2, 0);
 	
 	//BackGround
 	addBackGroundSprite(visibleSize, origin);

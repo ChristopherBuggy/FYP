@@ -29,7 +29,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			pSprite->autorelease();
 
 			//pSprite->initOptions(position);
-			pSprite->setPosition(100, 398);
+			pSprite->setPosition(100, 350);
 			//Body for the trap!
 			auto endBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
@@ -57,7 +57,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			pSprite->autorelease();
 
 			//pSprite->initOptions(position);
-			pSprite->setPosition(50, 420);
+			pSprite->setPosition(50, 375);
 			//Body for the endplat jack!
 			auto endJackBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
@@ -73,6 +73,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			//Othe stuff that may or may not be needed.
 			pSprite->setAnchorPoint(Point(0.5f, 0.5f));
 			pSprite->setScale(.8);
+			pSprite->setScaleY(2);
 			//pSprite->setScale(.33);
 
 
@@ -86,7 +87,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			pSprite->autorelease();
 			//pSprite->initPlayer();
 			//pSprite->initOptions(position);
-			pSprite->setPosition(100, 420);
+			pSprite->setPosition(100, 375);
 			//Body for the endplat jack!
 			auto endJillBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
@@ -102,6 +103,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			//Othe stuff that may or may not be needed.
 			pSprite->setAnchorPoint(Point(0.5f, 0.5f));
 			pSprite->setScale(.8);
+			pSprite->setScaleY(2);
 			//pSprite->setScale(.33);
 
 			return pSprite;
