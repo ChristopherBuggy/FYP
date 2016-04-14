@@ -24,7 +24,7 @@ Player2 * Player2::create()
 
 		player2Body->setDynamic(true);
 
-		player2Body->setLinearDamping(1);
+		//player2Body->setLinearDamping(0);
 		
 		
 		//Assign the body to sprite
@@ -60,7 +60,7 @@ void Player2::p2Jump(bool p2Jumped, Player2* p) {
 	CCLOG("Inside jump method within player class");
 	if (p2Jumped == false)
 	{
-		p->getPhysicsBody()->applyImpulse(Vect(0, 300));
+		p->getPhysicsBody()->applyImpulse(Vect(0, 260));
 	}
 	
 }

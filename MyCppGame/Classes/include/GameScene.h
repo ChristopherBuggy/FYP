@@ -45,6 +45,8 @@ private:
 	void createButton();
 	void preloadAudio();
 	void playAudio();
+	void createEndGameJack();
+	void createEndGameJill();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;

@@ -12,7 +12,7 @@ Scene* GameScreen::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
 
@@ -121,11 +121,23 @@ void GameScreen::createEndGame()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numEndGame; i++)
 	{
-		endGame * endGame = endGame::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]));
+		endGame * endGame = endGame::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]), 1);
 		m_end.push_back(endGame);
 		spritebatch->addChild(endGame, -5);
 	}
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
+}
+
+void GameScreen::createEndGameJack()
+{
+	endGame * endGamejack = endGame::create(Vec2(50, 420), 2);
+	this->addChild(endGamejack, 1);
+}
+
+void GameScreen::createEndGameJill()
+{
+	endGame * endGameJill = endGame::create(Vec2(100, 420), 3);
+	this->addChild(endGameJill, 1);
 }
 
 void GameScreen::createButton()
@@ -472,7 +484,9 @@ bool GameScreen::init()
 	//Needs to be done urgently! 
 	createPlatforms();
 	createTraps();
-	createEndGame();
+	//createEndGame();
+	createEndGameJack();
+	createEndGameJill();
 	createButton();
 
 	/*if (removeTraps == true)

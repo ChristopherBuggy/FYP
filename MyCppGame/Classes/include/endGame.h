@@ -12,7 +12,7 @@ private:
 public:
 	endGame();
 
-	static endGame * create(cocos2d::Vec2 position);
+	static endGame * create(cocos2d::Vec2 position, int selection);
 
 	void initOptions(cocos2d::Vec2 position);
 
