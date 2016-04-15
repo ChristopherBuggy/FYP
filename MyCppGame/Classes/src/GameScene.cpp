@@ -43,6 +43,7 @@ void GameScreen::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d:
 		(ptr->m_backgroundTextureFile);
 	backgroundSprite->setPosition(Point((visibleSize.width / 2) +
 		origin.x, (visibleSize.height / 2) + origin.y));
+	backgroundSprite->setScale(1.2);
 	this->addChild(backgroundSprite, -1);
 }
 
@@ -229,6 +230,13 @@ void GameScreen::playAudio()
 	}
 }
 
+void GameScreen::showEndGame()
+{
+	CCLOG("Collision has occured between Jack and the door!");
+	//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+}
+
 void GameScreen::showTower()
 {
 	Vec2 loc(0, 0);
@@ -281,6 +289,11 @@ void GameScreen::update(float dt)
 		player2->respawnPoint(player2);
 		playerTwoDead = false;
 	}
+
+	if (playerOneEndGame == true && playerTwoEndGame == true)
+	{
+		showEndGame();
+	}
 }
 
 
@@ -330,13 +343,14 @@ bool GameScreen::init()
 
 	//Set Pause button position
 	pauseItem->setPosition(Point(pauseItem->getContentSize().width -
-		(pauseItem->getContentSize().width / 4) + origin.x,
+		(pauseItem->getContentSize().width / 4) + 20,
 		visibleSize.height - pauseItem->getContentSize().height +
-		(pauseItem->getContentSize().width / 4) + origin.y));
+		(pauseItem->getContentSize().width / 4) - 20));
+	pauseItem->setScale(2);
 	//Attach the pause button to the screen
 	auto menu = Menu::create(pauseItem, NULL);
 	menu->setPosition(Point::ZERO);
-	this->addChild(menu);
+	this->addChild(menu, 10);
 	
 	//.........................................................................................
 	//DPad
@@ -533,8 +547,42 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 
 	if ((nodeA&&nodeB))
 	{
+		//You'll have to check for collision between Jill and the platform and the platform and Jill
+		//Collision between Jill and her endgame platform
+		if ((nodeA->getTag() == 11))
+		{
+			if (nodeB->getTag() == 8)
+			{
+				playerTwoEndGame = true;
+			}
+		}
+
+		//Collision between the platform and Jill.
+		if ((nodeA->getTag() == 8))
+		{
+			if (nodeB->getTag() == 11)
+			{
+				playerTwoEndGame = true;
+			}
+		}
+
+		if ((nodeA->getTag() == 7))
+		{
+			//Collision between jack and his endGame platform
+			if (nodeB->getTag() == 10)
+			{
+				playerOneEndGame = true;
+			}
+		}
+		
 		if ((nodeA->getTag() == 10))
 		{
+			//Collision between jack and his endGame platform
+			if (nodeB->getTag() == 7)
+			{
+				playerOneEndGame = true;
+			}
+
 			if (nodeB->getTag() == 20)
 			{
 				//trap->removeTrap(trap);
@@ -568,11 +616,23 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 
 
 	//check if the bodies have collided.
-	if ((0x000001 == a->getCollisionBitmask() && 0x000006 == b->getCollisionBitmask()) || (0x000006 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	if ((0x000001 == a->getCollisionBitmask() && 0x000016 == b->getCollisionBitmask()) || (0x000016 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
 	{
 		CCLOG("Collision has occured between Jack and the door!");
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
-		this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+		//this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+		playerOneEndGame = true;
+		//playerTwoEndGame = true;
+	}
+
+	//check if the bodies have collided.
+	if ((0x000002 == a->getCollisionBitmask() && 0x000017 == b->getCollisionBitmask()) || (0x000017 == a->getCollisionBitmask() && 0x000002 == b->getCollisionBitmask()))
+	{
+		CCLOG("Collision has occured between Jack and the door!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+		//this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+		//playerOneEndGame = true;
+		playerTwoEndGame = true;
 	}
 
 	if ((0x000001 == a->getCollisionBitmask() && 0x000005 == b->getCollisionBitmask()) || (0x000005 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))

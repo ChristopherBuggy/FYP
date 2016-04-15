@@ -47,6 +47,7 @@ private:
 	void playAudio();
 	void createEndGameJack();
 	void createEndGameJill();
+	void showEndGame();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;
@@ -55,6 +56,9 @@ private:
 
 	bool playerOneDead = false;
 	bool playerTwoDead = false;
+
+	bool playerOneEndGame = false;
+	bool playerTwoEndGame = false;
 
 	Player * player;
 	bool p1Jumped = false;

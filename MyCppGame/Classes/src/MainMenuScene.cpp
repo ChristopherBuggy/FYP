@@ -33,11 +33,14 @@ bool MainMenu::init()
 	auto backGroundSprite = Sprite::create("MainMenuScreen/bg.png");
 	backGroundSprite->setPosition(Vec2(origin.x + visibleSize.width / 2,
 		origin.y + visibleSize.height / 2));
+	backGroundSprite->setScale(3);
 	this->addChild(backGroundSprite);
-	
+
 	auto menuTitle =
 		MenuItemImage::create("MainMenuScreen/Game_Title.png",
 			"MainMenuScreen/Game_Title.png");
+	menuTitle->setScale(2);
+
 	auto playItem =
 		MenuItemImage::create("MainMenuScreen/play.png",
 			"MainMenuScreen/playClick.png",

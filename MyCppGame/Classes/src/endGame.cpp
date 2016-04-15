@@ -61,7 +61,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			//Body for the endplat jack!
 			auto endJackBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
-			//endBody->setCollisionBitmask(0x000006);
+			endJackBody->setCollisionBitmask(0x000016);
 			//endBody->setCategoryBitmask(0x02); //I want to keep this in the same catagory as the players s they can pass through 
 			//but I can still detect collision with the bitmask.
 			endJackBody->setContactTestBitmask(true);
@@ -91,7 +91,7 @@ endGame * endGame::create(Vec2 position, int selection)
 			//Body for the endplat jack!
 			auto endJillBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
 
-			//endBody->setCollisionBitmask(0x000006);
+			endJillBody->setCollisionBitmask(0x000017);
 			//endBody->setCategoryBitmask(0x02); //I want to keep this in the same catagory as the players s they can pass through 
 			//but I can still detect collision with the bitmask.
 			endJillBody->setContactTestBitmask(true);
