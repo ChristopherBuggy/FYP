@@ -235,7 +235,6 @@ void LevelTwo::playAudio()
 	if (player2Selected)
 	{
 		cameraTarget->setPosition(player2->getPositionX(), player2->getPositionY());
-
 	}
 }
 
