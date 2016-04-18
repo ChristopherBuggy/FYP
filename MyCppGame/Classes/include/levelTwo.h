@@ -17,15 +17,15 @@
 #include <string>
 //#include "DPad.h"
 
-class GameScreen : public cocos2d::Layer
+class LevelTwo : public cocos2d::Layer
 {
 private:
-	std::vector<TowerBase *> m_towerBases; 
+	std::vector<TowerBase *> m_towerBases;
 	std::string const TOWERS_SPRITE_BATCH = "TowerBases"; // don't forget to #include <string>
 
 	std::vector<TowerGun *> m_traps;
 	std::string const TRAPS_SPRITE_BATCH = "Traps"; // don't forget to #include <string>
-	
+
 	std::vector<endGame *> m_end;
 	std::string const END_SPRITE_BATCH = "EndDoor"; // don't forget to #include <string>
 
@@ -34,6 +34,9 @@ private:
 
 	std::vector<TowerBase *> m_hiddenPlats;
 	std::string const HIDDEN_SPRITE_BATCH = "hiddenPlatforms";
+
+	std::vector<TowerBase *> m_levelTwoPlat;
+	std::string const LEVELTWO_SPRITE_BATCH = "levelTwoPlatforms";
 
 	std::vector<leftButton *> m_leftButton;
 
@@ -48,7 +51,6 @@ private:
 	void createEndGameJack();
 	void createEndGameJill();
 	void showEndGame();
-	void showLevelTwo();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;
@@ -73,7 +75,7 @@ private:
 	leftButton * left;
 	rightButton * right;
 
-	GameStates m_gameState; 
+	GameStates m_gameState;
 	TowerGun * m_towerGun;
 
 	TowerGun * trap;
@@ -93,8 +95,9 @@ public:
 	void activatePauseScene(Ref *pSender);
 	// Called at game over 
 	void activateGameOverScene(float dt);
-	//Call level Two
-	void activateLevelTwoScene(float dt);
+	//Camera
+	cocos2d::Sprite *cameraTarget;
+	cocos2d::Follow *camera;
 
 	void MovementRight();
 	void MovementLeft();
@@ -108,7 +111,7 @@ public:
 	//GameLoop Stuff! 
 	void update(float dt);	// dt = delta time - the time between frames.
 
-	//Destroy bases
+							//Destroy bases
 	void destroyBases();
 
 	//Dpad stuff
@@ -118,5 +121,5 @@ public:
 	void onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event);
 	void onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event);
 
-	CREATE_FUNC(GameScreen);
+	CREATE_FUNC(LevelTwo);
 };

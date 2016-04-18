@@ -15,7 +15,7 @@ Scene* MainMenu::createScene()
 
 void MainMenu::activateGameScene(Ref *pSender)
 {
-	auto scene = GameScreen::createScene();
+	auto scene = LevelTwo::createScene();
 	//This is a fancy transition. 
 	//Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 	Director::getInstance()->replaceScene(scene);

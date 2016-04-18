@@ -19,6 +19,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/src/HUD.cpp \
 				   ../../Classes/src/leftButton.cpp \
 				   ../../Classes/src/LevelLoader.cpp \
+				   ../../Classes/src/levelTwo.cpp \
 				   ../../Classes/src/MainMenuScene.cpp \
 				   ../../Classes/src/PauseScene.cpp \
 				   ../../Classes/src/Platforms.cpp \

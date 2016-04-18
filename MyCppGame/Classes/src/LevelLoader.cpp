@@ -55,6 +55,10 @@ void LevelLoader::loadGameData()
 	ptr->m_firingDelay = tower["firing_delay"].GetInt();
 	ptr->m_towerRotationSpeed = tower["tower_rotation_speed"].GetInt();
 
+	//Level Two stuff is being loaded.................................................
+	//level tow platforms
+	ptr->m_levelTwoPlatforms = tower["level_two_base_file"].GetString();
+
 	// The "tower_rotation_origin" element is an object.
 	Value const & towerRotationOrigin = tower["tower_rotation_origin"];
 	ptr->m_towerRotationOriginX = towerRotationOrigin["x"].GetInt();
@@ -64,12 +68,17 @@ void LevelLoader::loadGameData()
 	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
 	ptr->m_numEndGame = tower["end_Game"].GetInt();
 	ptr->m_numButton = tower["num_Buttons"].GetInt();
+	//number of level two bases;
+	ptr->m_numberOfLevelTwoPlats = tower["number_of_bases_level_two"].GetInt();
 
 	// The "tower_bases" element is an array.
 	Value const & towerBases = tower["tower_bases"];
 	Value const & traps = tower["traps"];
 	Value const & endGame = tower["endGame"];
 	Value const & hiddenPlatforms = tower["hiddenPlat"];
+
+	//level Two
+	Value const & levelTwoBase = tower["level_Two_Bases"];
 
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
@@ -95,6 +104,14 @@ void LevelLoader::loadGameData()
 		ptr->m_endGameX[i] = endGame[i]["x"].GetInt();
 		ptr->m_endGameY[i] = endGame[i]["y"].GetInt();
 	}
+
+	//Level Two Array
+	for (int i = 0; i < levelTwoBase.Size(); i++)
+	{
+		ptr->m_levelTwoPlatformsX[i] = levelTwoBase[i]["x"].GetInt();
+		ptr->m_levelTwoPlatformsY[i] = levelTwoBase[i]["y"].GetInt();
+	}
+
 	// Move to the "projectile" element, which is another object.
 	it1++;
 	Value const & projectile = it1->value;

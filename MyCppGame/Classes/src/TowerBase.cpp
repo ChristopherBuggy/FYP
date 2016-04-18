@@ -67,6 +67,29 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		return pSprite;
 	}
 
+	if (pSprite->initWithSpriteFrameName(ptr->m_levelTwoPlatforms))
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+		// More on this below
+		//pSprite->addEvents();
+
+		auto levelTwoPlat = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+		levelTwoPlat->setCollisionBitmask(0x000003);
+		levelTwoPlat->setRotationEnable(false);
+		levelTwoPlat->setContactTestBitmask(true);
+		levelTwoPlat->setDynamic(false);
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(levelTwoPlat);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.33);
+
+		return pSprite;
+	}
 	
 	CC_SAFE_DELETE(pSprite);
 	return NULL;

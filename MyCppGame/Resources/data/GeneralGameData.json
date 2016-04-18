@@ -1,344 +1,406 @@
 {
-  "global_settings": {
-    "texture_background_file": "GameScreen/Background.png",
-    "texture_atlas_image_file": "GameScreen/levelOne.png",
-    "texture_atlas_plist_file": "GameScreen/levelOne.plist",
-    "tower": {
-      "tower_base_file": "midPiece.png",
-      "hidden_plat_file": "midPiece.png",
-      "tower_gun_file": "blade.png",
-      "end_game_file": "door.png",
-      "button_game_file": "buttonUnpressed.png",
-      "button_pressed_game_file": "buttonPressed.png",
-      "tower_width": 62,
-      "num_Buttons":1,
-      "tower_height": 53,
-      "firing_delay": 800,
-      "tower_rotation_speed": 3,
-      "tower_rotation_origin": {
-        "x": 31,
-        "y": 55
-      },
-      "number_of_traps": 2,
-      "traps": [
-        {
-          "x": 600,
-          "y": 100
-        },
-        {
-          "x": 600,
-          "y": 50
-        }
-      ],
-      "end_Game": 1,
-      "endGame": [
-        {
-          "x": 50,
-          "y": 50
-        }
-      ],
-      "number_of_hidden_platforms": 2,
-      "hiddenPlat": [
-        {
-          "x": 370,
-          "y": 210
-        },
-        {
-          "x": 325,
-          "y": 210
-        }
-      ],
-      "number_of_tower_bases": 52,
-      "tower_bases": [
-        {
-          "x": 55,
-          "y": 50
-        },
-        {
-          "x": 100,
-          "y": 50
-        },
-        {
-          "x": 145,
-          "y": 50
-        },
-        {
-          "x": 190,
-          "y": 50
-        },
-        {
-          "x": 235,
-          "y": 50
-        },
-        {
-          "x": 280,
-          "y": 50
-        },
-        {
-          "x": 325,
-          "y": 50
-        },
-        {
-          "x": 370,
-          "y": 50
-        },
-        {
-          "x": 415,
-          "y": 50
-        },
-        {
-          "x": 460,
-          "y": 50
-        },
-        {
-          "x": 505,
-          "y": 50
-        },
-        {
-          "x": 550,
-          "y": 50
-        },
-        {
-          "x": 595,
-          "y": 50
-        },
-        {
-          "x": 640,
-          "y": 50
-        },
-        {
-          "x": 685,
-          "y": 50
-        },
-        {
-          "x": 730,
-          "y": 50
-        },
-        {
-          "x": 775,
-          "y": 50
-        },
-        {
-          "x": 775,
-          "y": 90
-        },
-        {
-          "x": 775,
-          "y": 130
-        },
-        {
-          "x": 775,
-          "y": 170
-        },
-        {
-          "x": 775,
-          "y": 210
-        },
-        {
-          "x": 775,
-          "y": 250
-        },
-        {
-          "x": 775,
-          "y": 290
-        },
-        {
-          "x": 775,
-          "y": 330
-        },
-        {
-          "x": 775,
-          "y": 370
-        },
-        {
-          "x": 775,
-          "y": 410
-        },
-        {
-          "x": 55,
-          "y": 210
-        },
-        {
-          "x": 100,
-          "y": 210
-        },
-        {
-          "x": 145,
-          "y": 210
-        },
-        {
-          "x": 190,
-          "y": 210
-        },
-        {
-          "x": 235,
-          "y": 210
-        },
-        {
-          "x": 280,
-          "y": 210
+    "global_settings": {
+        "texture_background_file": "GameScreen/Background.png",
+        "texture_atlas_image_file": "GameScreen/levelOne.png",
+        "texture_atlas_plist_file": "GameScreen/levelOne.plist",
+        "tower": {
+            "tower_base_file": "midPiece.png",
+            "hidden_plat_file": "midPiece.png",
+            "tower_gun_file": "blade.png",
+            "end_game_file": "door.png",
+            "button_game_file": "buttonUnpressed.png",
+            "button_pressed_game_file": "buttonPressed.png",
+            "tower_width": 62,
+            "num_Buttons": 1,
+            "tower_height": 53,
+            "firing_delay": 800,
+            "tower_rotation_speed": 3,
+            "tower_rotation_origin": {
+                "x": 31,
+                "y": 55
+            },
+            "number_of_traps": 2,
+            "traps": [
+                {
+                    "x": 600,
+                    "y": 100
+                },
+                {
+                    "x": 600,
+                    "y": 50
+                }
+            ],
+            "end_Game": 1,
+            "endGame": [
+                {
+                    "x": 50,
+                    "y": 50
+                }
+            ],
+            "number_of_hidden_platforms": 2,
+            "hiddenPlat": [
+                {
+                    "x": 370,
+                    "y": 210
+                },
+                {
+                    "x": 325,
+                    "y": 210
+                }
+            ],
+            "number_of_tower_bases": 52,
+            "tower_bases": [
+                {
+                    "x": 55,
+                    "y": 50
+                },
+                {
+                    "x": 100,
+                    "y": 50
+                },
+                {
+                    "x": 145,
+                    "y": 50
+                },
+                {
+                    "x": 190,
+                    "y": 50
+                },
+                {
+                    "x": 235,
+                    "y": 50
+                },
+                {
+                    "x": 280,
+                    "y": 50
+                },
+                {
+                    "x": 325,
+                    "y": 50
+                },
+                {
+                    "x": 370,
+                    "y": 50
+                },
+                {
+                    "x": 415,
+                    "y": 50
+                },
+                {
+                    "x": 460,
+                    "y": 50
+                },
+                {
+                    "x": 505,
+                    "y": 50
+                },
+                {
+                    "x": 550,
+                    "y": 50
+                },
+                {
+                    "x": 595,
+                    "y": 50
+                },
+                {
+                    "x": 640,
+                    "y": 50
+                },
+                {
+                    "x": 685,
+                    "y": 50
+                },
+                {
+                    "x": 730,
+                    "y": 50
+                },
+                {
+                    "x": 775,
+                    "y": 50
+                },
+                {
+                    "x": 775,
+                    "y": 90
+                },
+                {
+                    "x": 775,
+                    "y": 130
+                },
+                {
+                    "x": 775,
+                    "y": 170
+                },
+                {
+                    "x": 775,
+                    "y": 210
+                },
+                {
+                    "x": 775,
+                    "y": 250
+                },
+                {
+                    "x": 775,
+                    "y": 290
+                },
+                {
+                    "x": 775,
+                    "y": 330
+                },
+                {
+                    "x": 775,
+                    "y": 370
+                },
+                {
+                    "x": 775,
+                    "y": 410
+                },
+                {
+                    "x": 55,
+                    "y": 210
+                },
+                {
+                    "x": 100,
+                    "y": 210
+                },
+                {
+                    "x": 145,
+                    "y": 210
+                },
+                {
+                    "x": 190,
+                    "y": 210
+                },
+                {
+                    "x": 235,
+                    "y": 210
+                },
+                {
+                    "x": 280,
+                    "y": 210
+                },
+
+                {
+                    "x": 415,
+                    "y": 210
+                },
+                {
+                    "x": 460,
+                    "y": 210
+                },
+                {
+                    "x": 505,
+                    "y": 210
+                },
+                {
+                    "x": 550,
+                    "y": 210
+                },
+                {
+                    "x": 595,
+                    "y": 210
+                },
+                {
+                    "x": 595,
+                    "y": 255
+                },
+                {
+                    "x": 640,
+                    "y": 255
+                },
+                {
+                    "x": 730,
+                    "y": 165
+                },
+                {
+                    "x": 235,
+                    "y": 300
+                },
+                {
+                    "x": 280,
+                    "y": 300
+                },
+                {
+                    "x": 325,
+                    "y": 300
+                },
+                {
+                    "x": 370,
+                    "y": 300
+                },
+                {
+                    "x": 415,
+                    "y": 300
+                },
+                {
+                    "x": 460,
+                    "y": 300
+                },
+                {
+                    "x": 505,
+                    "y": 300
+                },
+                {
+                    "x": 550,
+                    "y": 300
+                },
+                {
+                    "x": 595,
+                    "y": 300
+                },
+                {
+                    "x": 100,
+                    "y": 345
+                },
+                {
+                    "x": 55,
+                    "y": 345
+                },
+                {
+                    "x": 145,
+                    "y": 345
+                }
+            ],
+            "level_two_base_file": "midPiece.png",
+            "level_two_blade_file": "blade.png",
+            "number_of_bases_level_two": 20,
+            "level_Two_Bases": [
+                {
+                    "x": 20,
+                    "y": 335
+                },
+                {
+                    "x": 65,
+                    "y": 335
+                },
+                {
+                    "x": 110,
+                    "y": 335
+                },
+                {
+                    "x": 155,
+                    "y": 335
+                },
+                {
+                    "x": 290,
+                    "y": 335
+                },
+                {
+                    "x": 335,
+                    "y": 335
+                },
+                {
+                    "x": 380,
+                    "y": 335
+                },
+                {
+                    "x": 425,
+                    "y": 335
+                },
+                {
+                    "x": 470,
+                    "y": 335
+                },
+                {
+                    "x": 515,
+                    "y": 335
+                },
+                {
+                    "x": 560,
+                    "y": 335
+                },
+                {
+                    "x": 605,
+                    "y": 335
+                },
+                {
+                    "x": 650,
+                    "y": 335
+                },
+                {
+                    "x": 695,
+                    "y": 335
+                }
+            ]
         },
 
-        {
-          "x": 415,
-          "y": 210
+        "projectile": {
+            "projectile_file": "Hive.png",
+            "projectile_centre": {
+                "x": 6,
+                "y": 9
+            },
+            "max_num_projectiles": 20,
+            "time_to_live": 2,
+            "velocity": 5
         },
-        {
-          "x": 460,
-          "y": 210
-        },
-        {
-          "x": 505,
-          "y": 210
-        },
-        {
-          "x": 550,
-          "y": 210
-        },
-        {
-          "x": 595,
-          "y": 210
-        },
-        {
-          "x": 595,
-          "y": 255
-        },
-        {
-          "x": 640,
-          "y": 255
-        },
-        {
-          "x": 730,
-          "y": 165
-        },
-        {
-          "x": 235,
-          "y": 300
-        },
-        {
-          "x": 280,
-          "y": 300
-        },
-        {
-          "x": 325,
-          "y": 300
-        },
-        {
-          "x": 370,
-          "y": 300
-        },
-        {
-          "x": 415,
-          "y": 300
-        },
-        {
-          "x": 460,
-          "y": 300
-        },
-        {
-          "x": 505,
-          "y": 300
-        },
-        {
-          "x": 550,
-          "y": 300
-        },
-        {
-          "x": 595,
-          "y": 300
-        },
-        {
-          "x": 100,
-          "y": 345
-        },
-        {
-          "x": 55,
-          "y": 345
-        },
-        {
-          "x": 145,
-          "y": 345
+        "ai": {
+            "ai_image_file": "GameScreen/BearWalking.png",
+            "ai_plist_file": "GameScreen/BearWalking.plist",
+            "max_num_ai": 24,
+            "ai_spawn_interval": 1,
+            "ai_scale": 0.3,
+            "ai_velocity": 0.1,
+            "ai_time_delay": 1,
+            "ai_start_position": {
+                "x": -25,
+                "y": 470
+            },
+            "ai_walking_spritesheet": {
+                "rows": 9,
+                "columns": 4,
+                "width": 232,
+                "height": 282
+            },
+            "ai_waypoints": [
+                {
+                    "x": 63,
+                    "y": 455
+                },
+                {
+                    "x": 150,
+                    "y": 424
+                },
+                {
+                    "x": 230,
+                    "y": 384
+                },
+                {
+                    "x": 300,
+                    "y": 333
+                },
+                {
+                    "x": 360,
+                    "y": 295
+                },
+                {
+                    "x": 424,
+                    "y": 207
+                },
+                {
+                    "x": 505,
+                    "y": 255
+                },
+                {
+                    "x": 603,
+                    "y": 234
+                },
+                {
+                    "x": 638,
+                    "y": 329
+                },
+                {
+                    "x": 684,
+                    "y": 400
+                },
+                {
+                    "x": 732,
+                    "y": 455
+                },
+                {
+                    "x": 763,
+                    "y": 500
+                }
+            ]
         }
-      ]
-    },
-    "projectile": {
-      "projectile_file": "Hive.png",
-      "projectile_centre": {
-        "x": 6,
-        "y": 9
-      },
-      "max_num_projectiles": 20,
-      "time_to_live": 2,
-      "velocity": 5
-    },
-    "ai": {
-      "ai_image_file": "GameScreen/BearWalking.png",
-      "ai_plist_file": "GameScreen/BearWalking.plist",
-      "max_num_ai": 24,
-      "ai_spawn_interval": 1,
-      "ai_scale": 0.3,
-      "ai_velocity": 0.1,
-      "ai_time_delay": 1,
-      "ai_start_position": {
-        "x": -25,
-        "y": 470
-      },
-      "ai_walking_spritesheet": {
-        "rows": 9,
-        "columns": 4,
-        "width": 232,
-        "height": 282
-      },
-      "ai_waypoints": [
-        {
-          "x": 63,
-          "y": 455
-        },
-        {
-          "x": 150,
-          "y": 424
-        },
-        {
-          "x": 230,
-          "y": 384
-        },
-        {
-          "x": 300,
-          "y": 333
-        },
-        {
-          "x": 360,
-          "y": 295
-        },
-        {
-          "x": 424,
-          "y": 207
-        },
-        {
-          "x": 505,
-          "y": 255
-        },
-        {
-          "x": 603,
-          "y": 234
-        },
-        {
-          "x": 638,
-          "y": 329
-        },
-        {
-          "x": 684,
-          "y": 400
-        },
-        {
-          "x": 732,
-          "y": 455
-        },
-        {
-          "x": 763,
-          "y": 500
-        }
-      ]
-    }
-  } 
+    } 
 }

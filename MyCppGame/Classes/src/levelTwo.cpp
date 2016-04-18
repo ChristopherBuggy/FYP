@@ -1,16 +1,14 @@
-#include "GameScene.h"
+#include "levelTwo.h"
 #include "Player.h"
 #include "Player2.h"
 #include "leftButton.h"
 #include "rightButton.h"
 #include "SimpleAudioEngine.h"
-#include "levelTwo.h"
-
 #define CCRANDOM_0_1() ((float)rand()/RAND_MAX))
 
 USING_NS_CC;
 
-Scene* GameScreen::createScene()
+Scene* LevelTwo::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
@@ -18,32 +16,26 @@ Scene* GameScreen::createScene()
 
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
 
-	auto layer = GameScreen::create();
+	auto layer = LevelTwo::create();
 	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 	scene->addChild(layer);
-	
+
 	return scene;
 }
 
-void GameScreen::activatePauseScene(Ref *pSender)
+void LevelTwo::activatePauseScene(Ref *pSender)
 {
 	auto scene = PauseMenu::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
-void GameScreen::activateGameOverScene(float dt)
+void LevelTwo::activateGameOverScene(float dt)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
 
-void GameScreen::activateLevelTwoScene(float dt)
-{
-	auto scene = LevelTwo::createScene();
-	Director::getInstance()->replaceScene(scene);
-}
-
-void GameScreen::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin)
+void LevelTwo::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::Point const & origin)
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 
@@ -55,48 +47,46 @@ void GameScreen::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d:
 	this->addChild(backgroundSprite, -1);
 }
 
-void GameScreen::playerOneSelected() {
+void LevelTwo::playerOneSelected() {
 	player1Selected = true;
 	player2Selected = false;
-	//player->getPhysicsBody()->setDynamic(true);
-	//player2->getPhysicsBody()->setDynamic(false);
 }
 
-void GameScreen::playerTwoSelected() {
+void LevelTwo::playerTwoSelected() {
 	player1Selected = false;
 	player2Selected = true;
 }
 
-void GameScreen::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+void LevelTwo::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
 {
 
 }
 
-void GameScreen::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+void LevelTwo::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
 {
 	CCLOG("MultiTouch has Moved!");
 }
 
-void GameScreen::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
+void LevelTwo::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event)
 {
 	CCLOG("MultiTouch has Ended!");
 }
 
-void GameScreen::createPlatforms()
+void LevelTwo::createPlatforms()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 
-	for (int i = 0; i < ptr->m_numberOfTowerBases; i++)
+	for (int i = 0; i < ptr->m_numberOfLevelTwoPlats; i++)
 	{
-		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
-		m_towerBases.push_back(base);
+		TowerBase * base = TowerBase::create(Vec2(ptr->m_levelTwoPlatformsX[i], ptr->m_levelTwoPlatformsY[i]), m_gameState);
+		m_levelTwoPlat.push_back(base);
 		spritebatch->addChild(base, -5);
 	}
-	this->addChild(spritebatch, 1, TOWERS_SPRITE_BATCH);
+	this->addChild(spritebatch, 1, LEVELTWO_SPRITE_BATCH);
 }
 
-void GameScreen::createHiddenPlatforms()
+void LevelTwo::createHiddenPlatforms()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
@@ -111,7 +101,7 @@ void GameScreen::createHiddenPlatforms()
 }
 
 
-void GameScreen::createTraps() 
+void LevelTwo::createTraps()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
@@ -124,7 +114,7 @@ void GameScreen::createTraps()
 	this->addChild(spritebatch, -1, TRAPS_SPRITE_BATCH);
 }
 
-void GameScreen::createEndGame()
+void LevelTwo::createEndGame()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
@@ -137,19 +127,19 @@ void GameScreen::createEndGame()
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
 }
 
-void GameScreen::createEndGameJack()
+void LevelTwo::createEndGameJack()
 {
 	endGame * endGamejack = endGame::create(Vec2(50, 420), 2);
 	this->addChild(endGamejack, -1);
 }
 
-void GameScreen::createEndGameJill()
+void LevelTwo::createEndGameJill()
 {
 	endGame * endGameJill = endGame::create(Vec2(100, 420), 3);
 	this->addChild(endGameJill, -1);
 }
 
-void GameScreen::createButton()
+void LevelTwo::createButton()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
@@ -162,7 +152,7 @@ void GameScreen::createButton()
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
 }
 
-void GameScreen::destroyBases()
+void LevelTwo::destroyBases()
 {
 	cocos2d::Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
 	this->removeChildByName(TOWERS_SPRITE_BATCH, true);
@@ -171,7 +161,7 @@ void GameScreen::destroyBases()
 }
 
 //Preload Audio
-void GameScreen::preloadAudio()
+void LevelTwo::preloadAudio()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/main.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Jump.wav");
@@ -193,7 +183,7 @@ void GameScreen::preloadAudio()
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Gore.wav");
 }
 
-void GameScreen::playAudio()
+void LevelTwo::playAudio()
 {
 	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Player_Hit_0.wav");
 	int random = cocos2d::RandomHelper::random_int(1, 3);
@@ -236,23 +226,27 @@ void GameScreen::playAudio()
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Female_Hit_2.wav");
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Gore.wav");
 	}
+
+	//Setting who the camera should be following; Jack or Jill. Works pretty friggin well if I do say so myself! 
+	if (player1Selected)
+	{
+		cameraTarget->setPosition(player->getPositionX(), player->getPositionY());
+	}
+	if (player2Selected)
+	{
+		cameraTarget->setPosition(player2->getPositionX(), player2->getPositionY());
+
+	}
 }
 
-void GameScreen::showEndGame()
+void LevelTwo::showEndGame()
 {
 	CCLOG("Collision has occured between Jack and the door!");
 	//pButton->setSpriteFrame(ptr->m_buttonPressed);
-	this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
+	this->scheduleOnce(schedule_selector(LevelTwo::activateGameOverScene), 1.0f);
 }
 
-void GameScreen::showLevelTwo()
-{
-	CCLOG("Collision has occured between Jack and the door!");
-	//pButton->setSpriteFrame(ptr->m_buttonPressed);
-	this->scheduleOnce(schedule_selector(GameScreen::activateLevelTwoScene), 1.0f);
-}
-
-void GameScreen::showTower()
+void LevelTwo::showTower()
 {
 	Vec2 loc(0, 0);
 	for (int i = 0; i < m_towerBases.size(); i++)
@@ -268,7 +262,7 @@ void GameScreen::showTower()
 }
 
 //Update for GameLoop
-void GameScreen::update(float dt)
+void LevelTwo::update(float dt)
 {
 	playAudio();
 
@@ -307,13 +301,17 @@ void GameScreen::update(float dt)
 
 	if (playerOneEndGame == true && playerTwoEndGame == true)
 	{
-		//showEndGame();
-		showLevelTwo();
+		showEndGame();
 	}
+
+	
+
+	//cameraTarget->setPosition(player->getPositionX(), player->getPositionY());
+
 }
 
 
-bool GameScreen::init()
+bool LevelTwo::init()
 {
 	if (!Layer::init())
 	{
@@ -331,11 +329,11 @@ bool GameScreen::init()
 	//m_gameState = GameStates::PlaceGunTower;
 	//Listeners for touch events created.
 	auto listener = EventListenerTouchAllAtOnce::create();
-	listener->onTouchesBegan = CC_CALLBACK_2(GameScreen::onTouchesBegan, this);
-	listener->onTouchesMoved = CC_CALLBACK_2(GameScreen::onTouchesMoved, this);
-	listener->onTouchesEnded = CC_CALLBACK_2(GameScreen::onTouchesEnded, this);
+	listener->onTouchesBegan = CC_CALLBACK_2(LevelTwo::onTouchesBegan, this);
+	listener->onTouchesMoved = CC_CALLBACK_2(LevelTwo::onTouchesMoved, this);
+	listener->onTouchesEnded = CC_CALLBACK_2(LevelTwo::onTouchesEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
+	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 
@@ -345,17 +343,17 @@ bool GameScreen::init()
 	bool addPlatfroms = false;
 
 	//Edge body created. Adding screen Boundry. 
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	/*auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	edgeNode->setPhysicsBody(edgeBody);
 	this->addChild(edgeNode);
-
+	*/
 	//Pause Button Creation
 	auto pauseItem =
 		MenuItemImage::create("GameScreen/Pause_Button.png",
 			"GameScreen/Pause_Button(Click).png",
-			CC_CALLBACK_1(GameScreen::activatePauseScene, this));
+			CC_CALLBACK_1(LevelTwo::activatePauseScene, this));
 
 	//Set Pause button position
 	pauseItem->setPosition(Point(pauseItem->getContentSize().width -
@@ -367,9 +365,10 @@ bool GameScreen::init()
 	auto menu = Menu::create(pauseItem, NULL);
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu, 10);
-	
+
 	//.........................................................................................
 	//DPad
+
 	//LeftButton to move the player.
 	auto leftbutton = ui::Button::create("GameScreen/leftButtonIdle.png",
 		"GameScreen/leftbuttonActive.png");
@@ -399,7 +398,6 @@ bool GameScreen::init()
 			break;
 		}
 	});
-
 	this->addChild(leftbutton, 10);
 
 	//RightButton to move the player.
@@ -430,7 +428,6 @@ bool GameScreen::init()
 			break;
 		}
 	});
-
 	this->addChild(rightbutton, 10);
 
 	int stop;
@@ -460,7 +457,7 @@ bool GameScreen::init()
 				p2Jumped = true;
 				playJumpSound = true;
 			}
-			
+
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			break;
@@ -472,14 +469,14 @@ bool GameScreen::init()
 	this->addChild(jumpbutton, 10);
 	addEvents();
 	/*TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
-		m_towerBases.push_back(base);
-		spritebatch->addChild(base, -5);*/
-	
+	m_towerBases.push_back(base);
+	spritebatch->addChild(base, -5);*/
+
 	//Player select
 	auto p1Select =
 		MenuItemImage::create("GameScreen/p1Idle.png",
 			"GameScreen/p1Select.png",
-			CC_CALLBACK_0(GameScreen::playerOneSelected, this));
+			CC_CALLBACK_0(LevelTwo::playerOneSelected, this));
 	p1Select->setScale(2);
 	p1Select->setPosition(Vec2((origin.x + visibleSize.width / 2) - 20,
 		origin.y + visibleSize.height / 10));
@@ -488,7 +485,7 @@ bool GameScreen::init()
 	auto p2Select =
 		MenuItemImage::create("GameScreen/p2Idle.png",
 			"GameScreen/p2Select.png",
-			CC_CALLBACK_0(GameScreen::playerTwoSelected, this));
+			CC_CALLBACK_0(LevelTwo::playerTwoSelected, this));
 	p2Select->setScale(2);
 	p2Select->setPosition(Vec2((origin.x + visibleSize.width / 2) + 20,
 		origin.y + visibleSize.height / 10));
@@ -501,42 +498,63 @@ bool GameScreen::init()
 	//Player One creation g and attachment ot the scene
 	//Check player.cpp for Physics details.
 	player = Player::create();
-	this->addChild(player, 0);	
+	player->setPosition(Vec2(20, 400));
+	this->addChild(player, 0);
 
 	//Same comment applies for player two as player one!
 	player2 = Player2::create();
+	player2->setPosition(Vec2(70, 400));
 	this->addChild(player2, 0);
-	
+
 	//BackGround
 	addBackGroundSprite(visibleSize, origin);
 
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
 	createPlatforms();
-	createTraps();
+	//createTraps();
 	//createEndGame();
-	createEndGameJack();
-	createEndGameJill();
+	//createEndGameJack();
+	//createEndGameJill();
 	createButton();
 
-	/*if (removeTraps == true)
-	{
-		CCLOG("Remove traps has been entered");
-		removeTraps = false;
-	}*/
-	//this calls an update everyloop. Essentially creating your game loop!
-	//Please see "GameScene.h" for more info.
-	
+	//Camera stuff.........................................
+	auto camScene = Camera::create();
+	camScene->setCameraFlag(CameraFlag::USER1);
+
+	//HUD layer
+	auto hud = Layer::create();
+	hud->addChild(p2Select, 10);
+	hud->addChild(p1Select, 10);
+	//hud->addChild(selectMenu, 10);
+	hud->addChild(jumpbutton, 10);
+	hud->addChild(rightbutton, 10);
+	hud->addChild(leftbutton, 10);
+	hud->addChild(menu, 10);
+	hud->setCameraMask((unsigned short)CameraFlag::USER1);
+
+	this->addChild(camScene);
+
 	auto contactListener = EventListenerPhysicsContact::create();
 
-	contactListener->onContactBegin = CC_CALLBACK_1(GameScreen::onContactBegin, this);
+	contactListener->onContactBegin = CC_CALLBACK_1(LevelTwo::onContactBegin, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+	cameraTarget = Sprite::create();
+	cameraTarget->setPosition(player->getPositionX(), player->getPositionY());
+
+	this->addChild(cameraTarget);
+	camera = Follow::create(cameraTarget, Rect::ZERO);
+	
+	camera->retain();
+	this->runAction(camera);
+
 	this->scheduleUpdate();
 
 	return true;
 }
 
-void GameScreen::addEvents()
+void LevelTwo::addEvents()
 {
 	//Create a "one by one" touch event listener (processes one touch at a time)
 	auto listener1 = EventListenerTouchOneByOne::create();
@@ -553,7 +571,7 @@ void GameScreen::addEvents()
 	cocos2d::Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener1, 30);
 }
 
-bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
+bool LevelTwo::onContactBegin(cocos2d::PhysicsContact &contact)
 {
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
@@ -590,7 +608,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 				playerOneEndGame = true;
 			}
 		}
-		
+
 		if ((nodeA->getTag() == 10))
 		{
 			//Collision between jack and his endGame platform
@@ -613,7 +631,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 					delete m_traps.at(i);
 					//m_traps[i]->removeFromParentAndCleanup(true);
 					addPlatfroms = true;
-				}	
+				}
 				m_traps.clear();
 				//GameScreen::addPlatfroms = true;
 			}
@@ -628,7 +646,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		//return addPlatfroms;
 	}
-	
+
 
 
 	//check if the bodies have collided.

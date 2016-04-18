@@ -63,6 +63,7 @@
     <ClCompile Include="..\Classes\src\Button.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\levelTwo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -119,6 +120,7 @@
     <ClInclude Include="..\Classes\include\Button.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\levelTwo.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
