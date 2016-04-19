@@ -12,7 +12,7 @@ Scene* LevelTwo::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
 
@@ -145,7 +145,7 @@ void LevelTwo::createButton()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numButton; i++)
 	{
-		Button * button = Button::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]));
+		Button * button = Button::create(Vec2(ptr->m_ButtonsX[i], ptr->m_ButtonsY[i]), 2);
 		m_button.push_back(button);
 		spritebatch->addChild(button, -5);
 	}
@@ -342,12 +342,12 @@ bool LevelTwo::init()
 	bool addPlatfroms = false;
 
 	//Edge body created. Adding screen Boundry. 
-	/*auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	auto edgeNode = Node::create();
-	edgeNode->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	edgeNode->setPosition(Point(2000 / 2 + origin.x, 2000 / 2 + origin.y));
 	edgeNode->setPhysicsBody(edgeBody);
 	this->addChild(edgeNode);
-	*/
+	
 	//Pause Button Creation
 	auto pauseItem =
 		MenuItemImage::create("GameScreen/Pause_Button.png",
@@ -516,7 +516,6 @@ bool LevelTwo::init()
 	//createEndGameJack();
 	//createEndGameJill();
 	createButton();
-
 	//Camera stuff.........................................
 	auto camScene = Camera::create();
 	camScene->setCameraFlag(CameraFlag::USER1);

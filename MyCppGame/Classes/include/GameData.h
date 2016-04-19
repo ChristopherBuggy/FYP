@@ -48,6 +48,7 @@ public:
 	int m_numEndGame;
 	int m_numButton;
 	int m_numberOfLevelTwoPlats;
+	int m_buttonsLvlTwo;
 
 	float m_towerBaseX[52];
 	float m_towerBaseY[52];
@@ -60,9 +61,12 @@ public:
 
 	float m_endGameX[1];
 	float m_endGameY[1];
+	
+	float m_ButtonsX[2];
+	float m_ButtonsY[2];
 
-	float m_levelTwoPlatformsX[150];
-	float m_levelTwoPlatformsY[150];
+	float m_levelTwoPlatformsX[189];
+	float m_levelTwoPlatformsY[189];
 
 	// Projectile related fields.
 	std::string m_projectileFile;

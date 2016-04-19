@@ -68,6 +68,7 @@ void LevelLoader::loadGameData()
 	ptr->m_numberOfTraps = tower["number_of_traps"].GetInt();
 	ptr->m_numEndGame = tower["end_Game"].GetInt();
 	ptr->m_numButton = tower["num_Buttons"].GetInt();
+	ptr->m_buttonsLvlTwo = tower["buttons_Level_Two"].GetInt();
 	//number of level two bases;
 	ptr->m_numberOfLevelTwoPlats = tower["number_of_bases_level_two"].GetInt();
 
@@ -76,10 +77,10 @@ void LevelLoader::loadGameData()
 	Value const & traps = tower["traps"];
 	Value const & endGame = tower["endGame"];
 	Value const & hiddenPlatforms = tower["hiddenPlat"];
-
+	
 	//level Two
 	Value const & levelTwoBase = tower["level_Two_Bases"];
-
+	Value const & buttonGame2 = tower["buttonslvl2"];
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
 		ptr->m_towerBaseX[i] = towerBases[i]["x"].GetInt();
@@ -105,6 +106,11 @@ void LevelLoader::loadGameData()
 		ptr->m_endGameY[i] = endGame[i]["y"].GetInt();
 	}
 
+	//Buttons aray
+	for (int i = 0; i < buttonGame2.Size(); i++) {
+		ptr->m_ButtonsX[i] = buttonGame2[i]["x"].GetInt();
+		ptr->m_ButtonsY[i] = buttonGame2[i]["y"].GetInt();
+	}
 	//Level Two Array
 	for (int i = 0; i < levelTwoBase.Size(); i++)
 	{

@@ -155,7 +155,7 @@ void GameScreen::createButton()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numButton; i++)
 	{
-		Button * button = Button::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]));
+		Button * button = Button::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]), 1);
 		m_button.push_back(button);
 		spritebatch->addChild(button, -5);
 	}
