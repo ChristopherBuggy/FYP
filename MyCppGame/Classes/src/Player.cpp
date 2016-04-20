@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -63,6 +64,7 @@ void Player::pJump(bool pJumped, Player* p) {
 	if (pJumped == false)
 	{
 		p->getPhysicsBody()->applyImpulse(Vect(0, 250));
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Jump.wav", false);
 		//p->getPhysicsBody()->applyForce(Vect(0, 40));
 	}
 	

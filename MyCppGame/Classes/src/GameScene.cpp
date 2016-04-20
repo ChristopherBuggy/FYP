@@ -199,7 +199,7 @@ void GameScreen::playAudio()
 	int random = cocos2d::RandomHelper::random_int(1, 3);
 	if (playJumpSound == true)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Jump.wav", false);
+		
 		playJumpSound = false;
 	}
 

@@ -1,5 +1,5 @@
 #include "Player2.h"
-
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
 
 Player2 * Player2::create()
@@ -60,6 +60,7 @@ void Player2::p2Jump(bool p2Jumped, Player2* p) {
 	CCLOG("Inside jump method within player class");
 	if (p2Jumped == false)
 	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Jump.wav", false);
 		p->getPhysicsBody()->applyImpulse(Vect(0, 280));
 	}
 	
