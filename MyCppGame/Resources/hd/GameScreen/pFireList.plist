@@ -389,13 +389,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>firePlist.png</string>
+            <string>pFireList.png</string>
             <key>size</key>
             <string>{127,1216}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b33146a885b32d98dc8007e25bd27d1c:6cd803effc1efea43aec15631cb3967c:01a64de37bf7e1dfce06c94f2c67a454$</string>
+            <string>$TexturePacker:SmartUpdate:42cb7fe276eb8ec2f0c7b3163148d485:6cd803effc1efea43aec15631cb3967c:31fa9f8cc5e29d701117c90e439bee85$</string>
             <key>textureFileName</key>
-            <string>firePlist.png</string>
+            <string>pFireList.png</string>
         </dict>
     </dict>
 </plist>

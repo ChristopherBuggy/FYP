@@ -9,7 +9,7 @@ public:
 	static Player * create(void);
 	void pMovement(Player* p, bool dir);
 	void pJump(bool pJumped, Player* p);
-	void respawnPoint(Player* p);
+	void respawnPoint(Player* p, int i);
 
 private:
 	void initPlayer();

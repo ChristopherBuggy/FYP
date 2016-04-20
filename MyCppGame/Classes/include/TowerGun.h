@@ -12,7 +12,7 @@ private:
 public:
 	TowerGun();
 
-	static TowerGun * create(cocos2d::Vec2 position);
+	static TowerGun * create(cocos2d::Vec2 position, int i, int x, int y);
 
 	void initOptions(cocos2d::Vec2 position);
 

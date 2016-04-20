@@ -14,6 +14,8 @@
 #include "TowerGun.h"
 #include "endGame.h"
 #include "Button.h"
+#include "FlameEmitter.h"
+
 #include <string>
 //#include "DPad.h"
 
@@ -38,6 +40,12 @@ private:
 	std::vector<TowerBase *> m_levelTwoPlat;
 	std::string const LEVELTWO_SPRITE_BATCH = "levelTwoPlatforms";
 
+	std::vector<TowerBase *> m_removablePlats;
+	std::string const REMOVABLE_SPRITE_BATCH = "removablePlatforms";
+
+	std::vector<FlameEmitter *> m_flameEmitter;
+	std::string const FLAMEEMITTER_SPRITE_BATCH = "flameEmiiters";
+
 	std::vector<leftButton *> m_leftButton;
 
 	void createPlatforms();
@@ -51,6 +59,10 @@ private:
 	void createEndGameJack();
 	void createEndGameJill();
 	void showEndGame();
+	void createRemovablePlats();
+	void createFlameEmiiter();
+	void createFlames(float ft);
+	void boundingBoxCollision();
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	bool removeTraps;

@@ -65,7 +65,15 @@ void Player2::p2Jump(bool p2Jumped, Player2* p) {
 	
 }
 
-void Player2::respawnPoint(Player2* p)
+void Player2::respawnPoint(Player2* p, int i)
 {
-	p->setPosition(200, 100);
+	if (i == 1)
+	{
+		p->setPosition(200, 100);
+	}
+	else if (i == 2)
+	{
+		p->setPosition(70, 400);
+	}
+	
 }

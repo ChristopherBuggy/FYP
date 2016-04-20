@@ -73,8 +73,16 @@ void Player::initPlayer()
 
 }
 
-void Player::respawnPoint(Player* p)
+void Player::respawnPoint(Player* p, int i)
 {
-	p->setPosition(100, 100);
+	if (i == 1)
+	{
+		p->setPosition(100, 100);
+	}
+	if (i == 2)
+	{
+		p->setPosition(500, 400);
+	}
+	
 }
 

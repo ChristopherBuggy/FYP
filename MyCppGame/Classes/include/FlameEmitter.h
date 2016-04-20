@@ -4,15 +4,15 @@
 #include "GameData.h"
 #include "GameStates.h"
 
-class TowerBase : public cocos2d::Sprite
+class FlameEmitter : public cocos2d::Sprite
 {
 private:
 	GameStates & m_gameState;
 	bool m_touched;
 public:
-	TowerBase(GameStates & gameState);
+	FlameEmitter(GameStates & gameState);
 
-	static TowerBase * create(cocos2d::Vec2 position, GameStates & gameState, int i);
+	static FlameEmitter * create(cocos2d::Vec2 position, GameStates & gameState, int i);
 
 	void initOptions(cocos2d::Vec2 position);
 

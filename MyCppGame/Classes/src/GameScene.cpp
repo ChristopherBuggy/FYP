@@ -89,7 +89,7 @@ void GameScreen::createPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfTowerBases; i++)
 	{
-		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState);
+		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState, 1);
 		m_towerBases.push_back(base);
 		spritebatch->addChild(base, -5);
 	}
@@ -103,7 +103,7 @@ void GameScreen::createHiddenPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfHiddenPlatforms; i++)
 	{
-		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState);
+		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState, 2);
 		m_hiddenPlats.push_back(HiddenPlat);
 		spritebatch->addChild(HiddenPlat, -5);
 	}
@@ -117,7 +117,7 @@ void GameScreen::createTraps()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numberOfTraps; i++)
 	{
-		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]));
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 1, 1, 1);
 		m_traps.push_back(traps);
 		spritebatch->addChild(traps, -5);
 	}
@@ -262,7 +262,7 @@ void GameScreen::showTower()
 			loc = m_towerBases.at(i)->getPosition();
 		}
 	}
-	m_towerGun = TowerGun::create(loc);
+	m_towerGun = TowerGun::create(loc, 1, 1, 1);
 	this->addChild(m_towerGun);
 	m_gameState = GameStates::GameRunning;
 }
@@ -295,13 +295,13 @@ void GameScreen::update(float dt)
 
 	if (playerOneDead == true)
 	{
-		player->respawnPoint(player);
+		player->respawnPoint(player, 1);
 		playerOneDead = false;
 	}
 
 	if (playerTwoDead == true)
 	{
-		player2->respawnPoint(player2);
+		player2->respawnPoint(player2, 1);
 		playerTwoDead = false;
 	}
 

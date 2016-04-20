@@ -12,6 +12,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/src/Button.cpp \
 				   ../../Classes/src/DPad.cpp \
 				   ../../Classes/src/endGame.cpp \
+				   ../../Classes/src/FlameEmitter.cpp \
 				   ../../Classes/src/GameData.cpp \
 				   ../../Classes/src/GameOverScene.cpp \
 				   ../../Classes/src/GameScene.cpp \

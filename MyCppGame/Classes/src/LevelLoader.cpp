@@ -45,6 +45,12 @@ void LevelLoader::loadGameData()
 	//End game
 	ptr->m_endGameArea = tower["end_game_file"].GetString();
 
+	//Level Two stuff is being loaded.................................................
+	//level tow platforms
+	ptr->m_levelTwoPlatforms = tower["level_two_base_file"].GetString();
+
+	ptr->m_flameImitPic = tower["level_two_FlameEmitter"].GetString();
+
 	//loading the button both pressed and unpressed.
 	//Going to have to change hte button when I contact it. I'll try sort that.
 	ptr->m_buttonUnpressed = tower["button_game_file"].GetString();
@@ -54,10 +60,6 @@ void LevelLoader::loadGameData()
 	ptr->m_towerHeight = tower["tower_height"].GetInt();
 	ptr->m_firingDelay = tower["firing_delay"].GetInt();
 	ptr->m_towerRotationSpeed = tower["tower_rotation_speed"].GetInt();
-
-	//Level Two stuff is being loaded.................................................
-	//level tow platforms
-	ptr->m_levelTwoPlatforms = tower["level_two_base_file"].GetString();
 
 	// The "tower_rotation_origin" element is an object.
 	Value const & towerRotationOrigin = tower["tower_rotation_origin"];
@@ -71,6 +73,8 @@ void LevelLoader::loadGameData()
 	ptr->m_buttonsLvlTwo = tower["buttons_Level_Two"].GetInt();
 	//number of level two bases;
 	ptr->m_numberOfLevelTwoPlats = tower["number_of_bases_level_two"].GetInt();
+	//Number of fire emitters
+	ptr->m_flameImt = tower["number_of_flame_emitters"].GetInt();
 
 	// The "tower_bases" element is an array.
 	Value const & towerBases = tower["tower_bases"];
@@ -81,6 +85,8 @@ void LevelLoader::loadGameData()
 	//level Two
 	Value const & levelTwoBase = tower["level_Two_Bases"];
 	Value const & buttonGame2 = tower["buttonslvl2"];
+	Value const & flameEmitters = tower["flameEmitter_Positions"];
+
 	// Iterate through the array.
 	for (int i = 0; i < towerBases.Size(); i++) {
 		ptr->m_towerBaseX[i] = towerBases[i]["x"].GetInt();
@@ -116,6 +122,12 @@ void LevelLoader::loadGameData()
 	{
 		ptr->m_levelTwoPlatformsX[i] = levelTwoBase[i]["x"].GetInt();
 		ptr->m_levelTwoPlatformsY[i] = levelTwoBase[i]["y"].GetInt();
+	}
+	//FlameEmitter Array
+	for (int i = 0; i < flameEmitters.Size(); i++)
+	{
+		ptr->m_fireEmittersX[i] = flameEmitters[i]["x"].GetInt();
+		ptr->m_fireEmittersY[i] = flameEmitters[i]["x"].GetInt();
 	}
 
 	// Move to the "projectile" element, which is another object.

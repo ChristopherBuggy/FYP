@@ -9,7 +9,7 @@ m_touched(false)
 	
 }
 
-TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
+TowerBase * TowerBase::create(Vec2 position, GameStates & gameState, int i)
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 
@@ -17,7 +17,31 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 	spritecache->addSpriteFramesWithFile(ptr->m_textureAtlasPlistFile);		
 
 	TowerBase* pSprite = new TowerBase(gameState);
-	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile))
+	if (pSprite->initWithSpriteFrameName(ptr->m_towerBaseFile) && i == 1)
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+		// More on this below
+		//pSprite->addEvents();
+
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height - 8)), PhysicsMaterial(0, 0, 0));
+		midPlatBody->setCollisionBitmask(0x000003);
+		midPlatBody->setRotationEnable(false);
+		midPlatBody->setContactTestBitmask(true);
+		midPlatBody->setDynamic(false);
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(midPlatBody);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.85);
+
+		return pSprite;
+	}
+
+	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile) && i == 2)
 	{
 		// This means the sprite will be deleted when it has no references to it.
 		pSprite->autorelease();
@@ -26,7 +50,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		// More on this below
 		//pSprite->addEvents();
 		pSprite->setAnchorPoint(Vec2(0.5, 0.5));
-		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height -5)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height -8)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
 		//midPlatBody->setPositionOffset();
 		midPlatBody->setCollisionBitmask(0x000003);
 		midPlatBody->setRotationEnable(false);
@@ -43,7 +67,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		return pSprite;
 	}
 
-	if (pSprite->initWithSpriteFrameName(ptr->m_towerBaseFile))
+	if (pSprite->initWithSpriteFrameName(ptr->m_levelTwoPlatforms) && i == 3)
 	{
 		// This means the sprite will be deleted when it has no references to it.
 		pSprite->autorelease();
@@ -52,31 +76,7 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 		// More on this below
 		//pSprite->addEvents();
 
-		auto midPlatBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
-		midPlatBody->setCollisionBitmask(0x000003);
-		midPlatBody->setRotationEnable(false);
-		midPlatBody->setContactTestBitmask(true);
-		midPlatBody->setDynamic(false);
-		//Assign the body to the platform sprite
-		pSprite->setPhysicsBody(midPlatBody);
-
-		//Set the anchor point. Probably not needed but I'd rather have it done! 
-		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.33);
-
-		return pSprite;
-	}
-
-	if (pSprite->initWithSpriteFrameName(ptr->m_levelTwoPlatforms))
-	{
-		// This means the sprite will be deleted when it has no references to it.
-		pSprite->autorelease();
-		// This sets the initial sprite position to the parameter 'position'
-		pSprite->initOptions(position);
-		// More on this below
-		//pSprite->addEvents();
-
-		auto levelTwoPlat = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+		auto levelTwoPlat = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height - 8)), PhysicsMaterial(0, 0, 0));
 		levelTwoPlat->setCollisionBitmask(0x000003);
 		levelTwoPlat->setRotationEnable(false);
 		levelTwoPlat->setContactTestBitmask(true);
@@ -86,11 +86,92 @@ TowerBase * TowerBase::create(Vec2 position, GameStates & gameState)
 
 		//Set the anchor point. Probably not needed but I'd rather have it done! 
 		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
-		pSprite->setScale(.33);
+		pSprite->setScale(.85);
 
 		return pSprite;
 	}
 	
+	//Level two first hidden platform
+	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile) && i == 4)
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+
+		// More on this below
+		//pSprite->addEvents();
+		pSprite->setAnchorPoint(Vec2(0.5, 0.5));
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height - 8)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
+		//midPlatBody->setPositionOffset();
+		midPlatBody->setCollisionBitmask(0x000003);
+		midPlatBody->setRotationEnable(false);
+		midPlatBody->setContactTestBitmask(true);
+		midPlatBody->setDynamic(false);
+
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(midPlatBody);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.85);
+
+		return pSprite;
+	}
+
+	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile) && i == 5)
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+
+		// More on this below
+		//pSprite->addEvents();
+		pSprite->setAnchorPoint(Vec2(0.5, 0.5));
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height - 8)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
+		//midPlatBody->setPositionOffset();
+		midPlatBody->setCollisionBitmask(0x000003);
+		midPlatBody->setRotationEnable(false);
+		midPlatBody->setContactTestBitmask(true);
+		midPlatBody->setDynamic(false);
+
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(midPlatBody);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.85);
+
+		return pSprite;
+	}
+	if (pSprite->initWithSpriteFrameName(ptr->m_hiddenPlatFile) && i == 6)
+	{
+		// This means the sprite will be deleted when it has no references to it.
+		pSprite->autorelease();
+		// This sets the initial sprite position to the parameter 'position'
+		pSprite->initOptions(position);
+
+		// More on this below
+		//pSprite->addEvents();
+		pSprite->setAnchorPoint(Vec2(0.5, 0.5));
+		auto midPlatBody = PhysicsBody::createBox(Size(pSprite->getContentSize().width, (pSprite->getContentSize().height - 8)), PhysicsMaterial(0, 0, 0), Vec2(0, -5));
+		//midPlatBody->setPositionOffset();
+		midPlatBody->setCollisionBitmask(0x100003);
+		midPlatBody->setRotationEnable(false);
+		midPlatBody->setContactTestBitmask(true);
+		midPlatBody->setDynamic(false);
+
+		//Assign the body to the platform sprite
+		pSprite->setPhysicsBody(midPlatBody);
+
+		//Set the anchor point. Probably not needed but I'd rather have it done! 
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		pSprite->setScale(.85);
+
+		return pSprite;
+	}
+
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }

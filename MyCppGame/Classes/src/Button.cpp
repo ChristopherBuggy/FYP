@@ -48,22 +48,51 @@ Button * Button::create(Vec2 position, int i)
 
 		return pButton;
 	}
+	//Button for level two
+	//First button present in the level.
 	if (pButton->initWithSpriteFrameName(ptr->m_buttonUnpressed) && i == 2)
 	{
 		pButton->autorelease();
 		//The thing below. Use that to change sprite when pressed!
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		//pSprite->initOptions(position);
-		pButton->setPosition(200, 200);
+		pButton->setPosition(435, 370);
 		pButton->setTag(20);
 
 		//Body for the trap!
 		auto buttonBody = PhysicsBody::createBox(pButton->getContentSize(), PhysicsMaterial(100, 0, 0));
 		buttonBody->setGravityEnable(false);
 		buttonBody->setDynamic(false);
-		buttonBody->setCollisionBitmask(0x000005);
+		buttonBody->setCollisionBitmask(0x000105);
 		buttonBody->setContactTestBitmask(true);
 		buttonBody->setTag(20);
+
+		//Assign the body to sprite
+		pButton->setPhysicsBody(buttonBody);
+
+		//Othe stuff that may or may not be needed.
+		pButton->setAnchorPoint(Point(0.5f, 0.5f));
+		pButton->setScale(1.5);
+
+
+		return pButton;
+	}
+	if (pButton->initWithSpriteFrameName(ptr->m_buttonUnpressed) && i == 3)
+	{
+		pButton->autorelease();
+		//The thing below. Use that to change sprite when pressed!
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+		//pSprite->initOptions(position);
+		pButton->setPosition(400, -175);
+		pButton->setTag(47);
+
+		//Body for the trap!
+		auto buttonBody = PhysicsBody::createBox(pButton->getContentSize(), PhysicsMaterial(100, 0, 0));
+		buttonBody->setGravityEnable(false);
+		buttonBody->setDynamic(false);
+		buttonBody->setCollisionBitmask(0x001105);
+		buttonBody->setContactTestBitmask(true);
+		buttonBody->setTag(47);
 
 		//Assign the body to sprite
 		pButton->setPhysicsBody(buttonBody);

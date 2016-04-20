@@ -271,6 +271,14 @@
                     "y": 345
                 }
             ],
+            "level_two_FlameEmitter": "flameEmitter.png",
+            "number_of_flame_emitters": 20,
+            "flameEmitter_Positions": [
+                {
+                    "x": 380,
+                    "y": 380
+                }
+            ],
             "level_two_base_file": "midPiece.png",
             "level_two_blade_file": "blade.png",
             "number_of_bases_level_two": 189,

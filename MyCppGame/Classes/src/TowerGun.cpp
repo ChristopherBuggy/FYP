@@ -9,7 +9,7 @@ TowerGun::TowerGun()
 
 }
 
-TowerGun * TowerGun::create(Vec2 position)
+TowerGun * TowerGun::create(Vec2 position, int i, int x, int y)
 {
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -21,7 +21,7 @@ TowerGun * TowerGun::create(Vec2 position)
 	spritecache->addSpriteFramesWithFile(ptr->m_textureAtlasPlistFile);
 
 	TowerGun* pSprite = new TowerGun();
-	if (pSprite->initWithSpriteFrameName(ptr->m_towerGunFile))
+	if (pSprite->initWithSpriteFrameName(ptr->m_towerGunFile) && i == 1)
 	{
 		pSprite->autorelease();
 
@@ -50,6 +50,35 @@ TowerGun * TowerGun::create(Vec2 position)
 		return pSprite;
 	}
 
+	if (pSprite->initWithSpriteFrameName(ptr->m_towerGunFile) && i == 2)
+	{
+		pSprite->autorelease();
+
+		//pSprite->initOptions(position);
+		pSprite->setPosition(x, y);
+		pSprite->setTag(21);
+		pSprite->setScale(0.75f);
+
+		//Body for the trap!
+		auto trapBody = PhysicsBody::createCircle((pSprite->getContentSize().width / 2)*.75, PhysicsMaterial(100, 0, 0));
+		trapBody->setRotationEnable(true);
+		trapBody->setGravityEnable(false);
+		trapBody->setCollisionBitmask(0x000004);
+		trapBody->setContactTestBitmask(true);
+		//trapBody->setDynamic(false);
+		trapBody->setAngularVelocity(400);
+		trapBody->setTag(20);
+		//Assign the body to sprite
+		pSprite->setPhysicsBody(trapBody);
+
+
+		//Othe stuff that may or may not be needed.
+		pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+		//pSprite->setScale(.33);
+
+
+		return pSprite;
+	}
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
 }

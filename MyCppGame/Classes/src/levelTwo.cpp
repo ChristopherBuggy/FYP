@@ -12,7 +12,7 @@ Scene* LevelTwo::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
 
@@ -43,7 +43,7 @@ void LevelTwo::addBackGroundSprite(cocos2d::Size const & visibleSize, cocos2d::P
 		(ptr->m_backgroundTextureFile);
 	backgroundSprite->setPosition(Point((visibleSize.width / 2) +
 		origin.x, (visibleSize.height / 2) + origin.y));
-	backgroundSprite->setScale(1.2);
+	backgroundSprite->setScale(3.2);
 	this->addChild(backgroundSprite, -1);
 }
 
@@ -79,7 +79,7 @@ void LevelTwo::createPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfLevelTwoPlats; i++)
 	{
-		TowerBase * base = TowerBase::create(Vec2(ptr->m_levelTwoPlatformsX[i], ptr->m_levelTwoPlatformsY[i]), m_gameState);
+		TowerBase * base = TowerBase::create(Vec2(ptr->m_levelTwoPlatformsX[i], ptr->m_levelTwoPlatformsY[i]), m_gameState, 3);
 		m_levelTwoPlat.push_back(base);
 		spritebatch->addChild(base, -5);
 	}
@@ -93,7 +93,7 @@ void LevelTwo::createHiddenPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfHiddenPlatforms; i++)
 	{
-		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState);
+		TowerBase * HiddenPlat = TowerBase::create(Vec2(380, 470), m_gameState, 4);
 		m_hiddenPlats.push_back(HiddenPlat);
 		spritebatch->addChild(HiddenPlat, -5);
 	}
@@ -105,9 +105,33 @@ void LevelTwo::createTraps()
 {
 	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
-	for (int i = 0; i < ptr->m_numberOfTraps; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]));
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 2, 520, 240);
+		m_traps.push_back(traps);
+		spritebatch->addChild(traps, -5);
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 2, 970, 240);
+		m_traps.push_back(traps);
+		spritebatch->addChild(traps, -5);
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 2, 590, 115);
+		m_traps.push_back(traps);
+		spritebatch->addChild(traps, -5);
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 2, 790, 115);
+		m_traps.push_back(traps);
+		spritebatch->addChild(traps, -5);
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 2, 990, 115);
 		m_traps.push_back(traps);
 		spritebatch->addChild(traps, -5);
 	}
@@ -129,13 +153,13 @@ void LevelTwo::createEndGame()
 
 void LevelTwo::createEndGameJack()
 {
-	endGame * endGamejack = endGame::create(Vec2(50, 420), 2);
+	endGame * endGamejack = endGame::create(Vec2(500, 200), 4);
 	this->addChild(endGamejack, -1);
 }
 
 void LevelTwo::createEndGameJill()
 {
-	endGame * endGameJill = endGame::create(Vec2(100, 420), 3);
+	endGame * endGameJill = endGame::create(Vec2(100, 420), 5);
 	this->addChild(endGameJill, -1);
 }
 
@@ -149,7 +173,224 @@ void LevelTwo::createButton()
 		m_button.push_back(button);
 		spritebatch->addChild(button, -5);
 	}
+	for (int i = 0; i < ptr->m_numButton; i++)
+	{
+		Button * button = Button::create(Vec2(ptr->m_ButtonsX[i], ptr->m_ButtonsY[i]), 3);
+		m_button.push_back(button);
+		spritebatch->addChild(button, -5);
+	}
 	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
+}
+
+void LevelTwo::createRemovablePlats()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 0)
+		{
+			TowerBase * removablePlats = TowerBase::create(Vec2(200, 338), m_gameState, 5);
+			m_removablePlats.push_back(removablePlats);
+			spritebatch->addChild(removablePlats, -5);
+		}
+		else if (i == 1)
+		{
+			TowerBase * removablePlats = TowerBase::create(Vec2(245, 338), m_gameState, 5);
+			m_removablePlats.push_back(removablePlats);
+			spritebatch->addChild(removablePlats, -5);
+		}
+		else if (i == 2)
+		{
+			TowerBase * removablePlats = TowerBase::create(Vec2(200, -100), m_gameState, 6);
+			m_removablePlats.push_back(removablePlats);
+			spritebatch->addChild(removablePlats, -5);
+		}
+		else if (i == 3)
+		{
+			TowerBase * removablePlats = TowerBase::create(Vec2(245, -100), m_gameState, 6);
+			m_removablePlats.push_back(removablePlats);
+			spritebatch->addChild(removablePlats, -5);
+		}
+	}
+	this->addChild(spritebatch, 1, END_SPRITE_BATCH);
+}
+
+void LevelTwo::createFlames(float dt)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		
+		auto spritecache = SpriteFrameCache::getInstance();
+		spritecache->addSpriteFramesWithFile("GameScreen/fireList.plist");
+		cocos2d::SpriteFrame* spriteFrame = spritecache->getSpriteFrameByName("fire1.png");
+		cocos2d::Vector<cocos2d::Sprite *> m_aiSprites;
+		cocos2d::Vector<cocos2d::SpriteFrame*> m_animFrames;
+
+		for (int j = 1; j < 27; j++)
+		{
+			// Get a SpriteFrame using a name from the spritesheet .plist file.
+			m_animFrames.pushBack(spritecache->getSpriteFrameByName("fire" + std::to_string(j) + ".png"));
+		}
+		// Create the animation out of the frames.
+		Animation* animation = Animation::createWithSpriteFrames(m_animFrames, 0.065);
+		Animate* animate = Animate::create(animation);
+		// Create a sprite using any one of the SpriteFrames
+		// This is so we get a sprite of the correct dimensions.
+		auto sprite = Sprite::createWithSpriteFrame(m_animFrames.at(0));
+		// Run and repeat the animation.
+		sprite->setScale(2.0f);
+		sprite->runAction(animate);
+		auto fireBody = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+
+		if (i == 0)
+		{
+			sprite->setPosition(Vec2(600, 420));
+			sprite->setTag(21);
+			//fireBody->setCollisionBitmask(0x000101);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 1)
+		{
+			sprite->setPosition(Vec2(770, 420));
+			sprite->setTag(22);
+			//fireBody->setCollisionBitmask(0x000201);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 2)
+		{
+			sprite->setPosition(Vec2(940, 420));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 3)
+		{
+			sprite->setPosition(Vec2(600, -20));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 4)
+		{
+			sprite->setPosition(Vec2(940, -20));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 5)
+		{
+			sprite->setPosition(Vec2(100, 260));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 6)
+		{
+			sprite->setPosition(Vec2(130, 130));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 7)
+		{
+			sprite->setPosition(Vec2(100, -20));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		else if (i == 8)
+		{
+			sprite->setPosition(Vec2(200, -20));
+			sprite->setTag(23);
+			//fireBody->setCollisionBitmask(0x000301);
+			//sprite->setPhysicsBody(fireBody);
+		}
+		this->addChild(sprite, 10);
+		m_aiSprites.pushBack(sprite);
+
+		if (dt == 5)
+		{
+			sprite->removeFromPhysicsWorld();
+		}
+		for (int i = 0; i < m_aiSprites.size(); i++)
+		{
+			if (player->boundingBox().intersectsRect(sprite->boundingBox()))
+			{
+				playerOneDead = true;
+			}
+			if (player2->boundingBox().intersectsRect(sprite->boundingBox()))
+			{
+				playerTwoDead = true;
+			}
+		}
+		
+		//m_aiSprites.clear();
+	}
+}
+
+void LevelTwo::createFlameEmiiter()
+{
+	std::shared_ptr<GameData> ptr = GameData::sharedGameData();
+	//SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 0)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(600, 477), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(770, 477), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(940, 477), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(940, 30), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(600, 30), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(100, 310), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(130, 170), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(100, 35), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+		if (i == 1)
+		{
+			FlameEmitter * flameEmitter = FlameEmitter::create(Vec2(200, 35), m_gameState, 1);
+			m_flameEmitter.push_back(flameEmitter);
+			this->addChild(flameEmitter, 15);
+		}
+	}
+	//this->addChild(spritebatch, 1, FLAMEEMITTER_SPRITE_BATCH);
 }
 
 void LevelTwo::destroyBases()
@@ -255,7 +496,7 @@ void LevelTwo::showTower()
 			loc = m_towerBases.at(i)->getPosition();
 		}
 	}
-	m_towerGun = TowerGun::create(loc);
+	m_towerGun = TowerGun::create(loc, 1, 1, 1);
 	this->addChild(m_towerGun);
 	m_gameState = GameStates::GameRunning;
 }
@@ -288,13 +529,13 @@ void LevelTwo::update(float dt)
 
 	if (playerOneDead == true)
 	{
-		player->respawnPoint(player);
+		player->respawnPoint(player, 2);
 		playerOneDead = false;
 	}
 
 	if (playerTwoDead == true)
 	{
-		player2->respawnPoint(player2);
+		player2->respawnPoint(player2, 2);
 		playerTwoDead = false;
 	}
 
@@ -303,10 +544,9 @@ void LevelTwo::update(float dt)
 		showEndGame();
 	}
 
-	
-
+	this->scheduleOnce(schedule_selector(LevelTwo::createFlames), 2.7f);
+	//createFlames(checkCollision);
 	//cameraTarget->setPosition(player->getPositionX(), player->getPositionY());
-
 }
 
 
@@ -342,12 +582,12 @@ bool LevelTwo::init()
 	bool addPlatfroms = false;
 
 	//Edge body created. Adding screen Boundry. 
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
+	/*auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 1);
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(2000 / 2 + origin.x, 2000 / 2 + origin.y));
 	edgeNode->setPhysicsBody(edgeBody);
 	this->addChild(edgeNode);
-	
+	*/
 	//Pause Button Creation
 	auto pauseItem =
 		MenuItemImage::create("GameScreen/Pause_Button.png",
@@ -511,11 +751,14 @@ bool LevelTwo::init()
 	//Create the Tower base. I'll be repurposing these for my level bases! 
 	//Needs to be done urgently! 
 	createPlatforms();
-	//createTraps();
+	createTraps();
 	//createEndGame();
-	//createEndGameJack();
-	//createEndGameJill();
+	createEndGameJack();
+	createEndGameJill();
 	createButton();
+	createRemovablePlats();
+	createFlameEmiiter();
+
 	//Camera stuff.........................................
 	auto camScene = Camera::create();
 	camScene->setCameraFlag(CameraFlag::USER1);
@@ -579,6 +822,21 @@ bool LevelTwo::onContactBegin(cocos2d::PhysicsContact &contact)
 
 	if ((nodeA&&nodeB))
 	{
+		if ((nodeA->getTag() == 21))
+		{
+			if (nodeB->getTag() == 10)
+			{
+				playerOneDead = true;
+			}
+		}
+
+		if ((nodeA->getTag() == 10))
+		{
+			if (nodeB->getTag() == 21)
+			{
+				playerOneDead = true;
+			}
+		}
 		//You'll have to check for collision between Jill and the platform and the platform and Jill
 		//Collision between Jill and her endgame platform
 		if ((nodeA->getTag() == 11))
@@ -685,11 +943,49 @@ bool LevelTwo::onContactBegin(cocos2d::PhysicsContact &contact)
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 
+	if ((0x000001 == a->getCollisionBitmask() && 0x000105 == b->getCollisionBitmask()) || (0x000105 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		CCLOG("Collision has occured between jack and the button!");
+		for (int i = 0; i < m_removablePlats.size(); i++)
+		{
+			auto removablePlatform = m_removablePlats.at(i);
+
+			sceneWorld->removeBody(removablePlatform->getPhysicsBody());
+
+			Director::getInstance()->getRunningScene()->removeChild(removablePlatform);
+			m_removablePlats[i]->removeFromParentAndCleanup(true);
+		}
+		m_removablePlats.clear();
+		addPlatfroms = true;
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+
 	if ((0x000001 == a->getCollisionBitmask() && 0x000004 == b->getCollisionBitmask()) || (0x000004 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
 	{
 		//player->respawnPoint(player);
 		playerOneDead = true;
 		CCLOG("Collision has occured between jack and the trap!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+	if ((0x000001 == a->getCollisionBitmask() && 0x000101 == b->getCollisionBitmask()) || (0x000101 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		//player->respawnPoint(player);
+		playerOneDead = true;
+		CCLOG("Collision has occured between jack and the fire1!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+	if ((0x000001 == a->getCollisionBitmask() && 0x000102 == b->getCollisionBitmask()) || (0x000102 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		//player->respawnPoint(player);
+		playerOneDead = true;
+		CCLOG("Collision has occured between jack and the fire2!");
+		//pButton->setSpriteFrame(ptr->m_buttonPressed);
+	}
+	if ((0x000001 == a->getCollisionBitmask() && 0x000103 == b->getCollisionBitmask()) || (0x000103 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
+	{
+		//player->respawnPoint(player);
+		playerOneDead = true;
+		CCLOG("Collision has occured between jack and the fire3!");
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 	}
 

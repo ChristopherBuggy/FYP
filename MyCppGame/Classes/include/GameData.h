@@ -35,6 +35,7 @@ public:
 	std::string m_buttonPressed;
 	//Level Two stuff within the json file being loaded here.
 	std::string m_levelTwoPlatforms;
+	std::string m_flameImitPic;
 
 	int m_towerWidth;
 	int m_towerHeight;
@@ -49,6 +50,7 @@ public:
 	int m_numButton;
 	int m_numberOfLevelTwoPlats;
 	int m_buttonsLvlTwo;
+	int m_flameImt;
 
 	float m_towerBaseX[52];
 	float m_towerBaseY[52];
@@ -61,12 +63,15 @@ public:
 
 	float m_endGameX[1];
 	float m_endGameY[1];
-	
+
 	float m_ButtonsX[2];
 	float m_ButtonsY[2];
 
 	float m_levelTwoPlatformsX[189];
 	float m_levelTwoPlatformsY[189];
+
+	float m_fireEmittersX[20];
+	float m_fireEmittersY[20];
 
 	// Projectile related fields.
 	std::string m_projectileFile;

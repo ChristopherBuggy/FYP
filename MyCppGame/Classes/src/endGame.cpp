@@ -109,6 +109,64 @@ endGame * endGame::create(Vec2 position, int selection)
 			return pSprite;
 		}
 	}
+	else if (selection == 4)
+	{
+		if (pSprite->initWithFile("GameScreen/playerOneEnd.png"))
+		{
+			pSprite->autorelease();
+			//pSprite->initPlayer();
+			//pSprite->initOptions(position);
+			pSprite->setPosition(1100, -175);
+			//Body for the endplat jack!
+			auto endJillBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+
+			endJillBody->setCollisionBitmask(0x000016);
+			//endBody->setCategoryBitmask(0x02); //I want to keep this in the same catagory as the players s they can pass through 
+			//but I can still detect collision with the bitmask.
+			endJillBody->setContactTestBitmask(true);
+			endJillBody->setDynamic(false);
+			endJillBody->setTag(8);
+			//Assign the body to sprite
+			pSprite->setPhysicsBody(endJillBody);
+
+			//Othe stuff that may or may not be needed.
+			pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+			pSprite->setScale(.8);
+			pSprite->setScaleY(2);
+			//pSprite->setScale(.33);
+
+			return pSprite;
+		}
+	}
+	else if (selection == 5)
+	{
+		if (pSprite->initWithFile("GameScreen/playerTwoEnd.png"))
+		{
+			pSprite->autorelease();
+			//pSprite->initPlayer();
+			//pSprite->initOptions(position);
+			pSprite->setPosition(1000, -175);
+			//Body for the endplat jack!
+			auto endJillBody = PhysicsBody::createBox(pSprite->getContentSize(), PhysicsMaterial(0, 0, 0));
+
+			endJillBody->setCollisionBitmask(0x000017);
+			//endBody->setCategoryBitmask(0x02); //I want to keep this in the same catagory as the players s they can pass through 
+			//but I can still detect collision with the bitmask.
+			endJillBody->setContactTestBitmask(true);
+			endJillBody->setDynamic(false);
+			endJillBody->setTag(8);
+			//Assign the body to sprite
+			pSprite->setPhysicsBody(endJillBody);
+
+			//Othe stuff that may or may not be needed.
+			pSprite->setAnchorPoint(Point(0.5f, 0.5f));
+			pSprite->setScale(.8);
+			pSprite->setScaleY(2);
+			//pSprite->setScale(.33);
+
+			return pSprite;
+		}
+	}
 	
 	CC_SAFE_DELETE(pSprite);
 	return NULL;
