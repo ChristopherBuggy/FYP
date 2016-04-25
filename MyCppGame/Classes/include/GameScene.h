@@ -96,6 +96,8 @@ public:
 	//Call level Two
 	void activateLevelTwoScene(float dt);
 
+	void print_number(int* myInt);
+	void print_bool(bool* myBool);
 	void MovementRight();
 	void MovementLeft();
 	void playerOneSelected();

@@ -25,6 +25,18 @@ Scene* GameScreen::createScene()
 	return scene;
 }
 
+void GameScreen::print_number(int* myInt)
+{
+	assert(myInt != NULL);
+	printf("%d\n", myInt);
+}
+
+void GameScreen::print_bool(bool* myBool)
+{
+	assert(myBool != NULL);
+	printf("%d\n", *myBool);
+}
+
 void GameScreen::activatePauseScene(Ref *pSender)
 {
 	auto scene = PauseMenu::createScene();
@@ -89,6 +101,7 @@ void GameScreen::createPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfTowerBases; i++)
 	{
+		GameScreen::print_number(&ptr->m_numberOfTowerBases);
 		TowerBase * base = TowerBase::create(Vec2(ptr->m_towerBaseX[i], ptr->m_towerBaseY[i]), m_gameState, 1);
 		m_towerBases.push_back(base);
 		spritebatch->addChild(base, -5);
@@ -103,6 +116,7 @@ void GameScreen::createHiddenPlatforms()
 
 	for (int i = 0; i < ptr->m_numberOfHiddenPlatforms; i++)
 	{
+		GameScreen::print_number(&ptr->m_numberOfHiddenPlatforms);
 		TowerBase * HiddenPlat = TowerBase::create(Vec2(ptr->m_hiddenPlatsX[i], ptr->m_hiddenPlatsY[i]), m_gameState, 2);
 		m_hiddenPlats.push_back(HiddenPlat);
 		spritebatch->addChild(HiddenPlat, -5);
@@ -117,6 +131,7 @@ void GameScreen::createTraps()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numberOfTraps; i++)
 	{
+		GameScreen::print_number(&ptr->m_numberOfTraps);
 		TowerGun * traps = TowerGun::create(Vec2(ptr->m_trapX[i], ptr->m_trapY[i]), 1, 1, 1);
 		m_traps.push_back(traps);
 		spritebatch->addChild(traps, -5);
@@ -130,6 +145,7 @@ void GameScreen::createEndGame()
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create(ptr->m_textureAtlasImageFile);
 	for (int i = 0; i < ptr->m_numEndGame; i++)
 	{
+		GameScreen::print_number(&ptr->m_numEndGame);
 		endGame * endGame = endGame::create(Vec2(ptr->m_endGameX[i], ptr->m_endGameY[i]), 1);
 		m_end.push_back(endGame);
 		spritebatch->addChild(endGame, -5);
@@ -638,6 +654,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		//pButton->setSpriteFrame(ptr->m_buttonPressed);
 		//this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
 		playerOneEndGame = true;
+		GameScreen::print_bool(&playerOneEndGame);
 		//playerTwoEndGame = true;
 	}
 
@@ -649,6 +666,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		//this->scheduleOnce(schedule_selector(GameScreen::activateGameOverScene), 1.0f);
 		//playerOneEndGame = true;
 		playerTwoEndGame = true;
+		GameScreen::print_bool(&playerTwoEndGame);
 	}
 
 	if ((0x000001 == a->getCollisionBitmask() && 0x000005 == b->getCollisionBitmask()) || (0x000005 == a->getCollisionBitmask() && 0x000001 == b->getCollisionBitmask()))
@@ -657,9 +675,7 @@ bool GameScreen::onContactBegin(cocos2d::PhysicsContact &contact)
 		for (int i = 0; i < m_traps.size(); i++)
 		{
 			auto trap = m_traps.at(i);
-
 			sceneWorld->removeBody(trap->getPhysicsBody());
-
 			Director::getInstance()->getRunningScene()->removeChild(trap);
 			m_traps[i]->removeFromParentAndCleanup(true);
 		}

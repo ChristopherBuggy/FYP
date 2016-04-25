@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <assert.h>
 ////////////////////////////////////////////////////////////
 /// \brief A class that stores gameplay data
 /// 
